@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "hyperloop-mobile",
+    "slug": "hyperloop-mobile",
+    "version": "1.0.0",
+    "sdkVersion": 47,
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
