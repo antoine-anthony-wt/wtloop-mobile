@@ -1,0 +1,87 @@
+{
+  "root": true,
+  "extends": ["@react-native-community"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": ["./tsconfig.json"]
+  },
+  "plugins": ["@typescript-eslint", "import"],
+  "rules": {
+    "prettier/prettier": "warn",
+    "global-require": "off",
+    "no-console": ["off", { "allow": ["warn", "error"] }],
+    "semi": ["error", "always"],
+    "spaced-comment": ["error", "always", { "markers": ["/"] }],
+    "import/prefer-default-export": "off",
+    "class-methods-use-this": "off",
+    "no-unused-expressions": ["error", { "allowShortCircuit": true }],
+    "no-unused-vars": "off",
+    "no-shadow": "off",
+    "no-undef": "off",
+    "max-classes-per-file": "off",
+    "import/extensions": [
+      "off",
+      {
+        "ignorePackages": true,
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["**/*.ts", "**/*.tsx"],
+      "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
+        "plugin:react/recommended",
+        "plugin:react-hooks/recommended",
+        "plugin:import/typescript",
+        "prettier"
+      ],
+      "rules": {
+        // TypeScript
+        "@typescript-eslint/no-non-null-assertion": "off",
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/no-floating-promises": "off",
+        "@typescript-eslint/no-unused-expressions": "error",
+        "@typescript-eslint/restrict-template-expressions": "off",
+        "@typescript-eslint/no-shadow": "error",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-unsafe-call": "off",
+        "@typescript-eslint/no-unsafe-return": "off",
+        "@typescript-eslint/no-unsafe-argument": "off",
+        "@typescript-eslint/no-unsafe-assignment": "off",
+        "@typescript-eslint/no-unsafe-member-access": "off",
+
+        // React
+        "react/style-prop-object": "off",
+        "react/jsx-props-no-spreading": "off",
+        "react/require-default-props": "off",
+        "react/jsx-filename-extension": [
+          "warn",
+          {
+            "extensions": [".js", ".jsx", ".ts", ".tsx"]
+          }
+        ],
+
+        // React Hooks
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "off"
+      }
+    }
+  ],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      },
+      "react": {
+        "version": "detect"
+      }
+    }
+  }
+}

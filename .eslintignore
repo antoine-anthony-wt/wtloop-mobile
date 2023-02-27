@@ -1,0 +1,7 @@
+# node.js
+node_modules/
+build
+coverage
+babel.config.js
+jest.config.js
+metro.config.js
