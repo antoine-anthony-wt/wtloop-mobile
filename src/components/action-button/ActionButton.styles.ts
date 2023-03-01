@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { makeStyles } from '@rneui/themed';
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((theme) => ({
   container: {
     overflow: 'hidden',
   },
@@ -8,28 +8,28 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   filledButton: {
-    backgroundColor: 'dodgerblue',
+    backgroundColor: theme.colors.primary,
   },
   filledReversedButton: {
-    backgroundColor: 'white',
+    backgroundColor: theme.colors.white,
   },
   filledDisabledButton: {
-    backgroundColor: 'lightgray',
+    backgroundColor: theme.colors.grey1,
   },
   outlinedButton: {
     backgroundColor: 'transparent',
     borderWidth: 1.5,
-    borderColor: 'dodgerblue',
+    borderColor: theme.colors.primary,
   },
   outlinedReversedButton: {
     backgroundColor: 'transparent',
     borderWidth: 1.5,
-    borderColor: 'white',
+    borderColor: theme.colors.white,
   },
   outlinedDisabledButton: {
     backgroundColor: 'transparent',
     borderWidth: 1.5,
-    borderColor: 'darkgray',
+    borderColor: theme.colors.grey4,
   },
   buttonMedium: {
     minHeight: 48,
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   title: {
     alignSelf: 'center',
     paddingHorizontal: 4,
-    color: 'white',
+    color: theme.colors.white,
   },
   mediumTitle: {
     fontSize: 18,
@@ -55,20 +55,20 @@ const styles = StyleSheet.create({
     fontSize: 22,
   },
   filledTitle: {
-    color: 'white',
+    color: theme.colors.white,
   },
   filledReversedTitle: {
-    color: 'dodgerblue',
+    color: theme.colors.primary,
   },
   outlinedTitle: {
-    color: 'dodgerblue',
+    color: theme.colors.primary,
   },
   outlinedReversedTitle: {
-    color: 'white',
+    color: theme.colors.white,
   },
   outlinedDisabledTitle: {
-    color: 'darkgray',
+    color: theme.colors.grey4,
   },
-});
+}));
 
-export default styles;
+export default useStyles;

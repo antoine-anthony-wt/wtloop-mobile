@@ -1,12 +1,14 @@
 import React from 'react';
 import { View } from 'react-native';
 import { ActionButton } from '~components';
-import { styles } from './HomeScreen.styles';
+import useStyles from './HomeScreen.styles';
 
 export default function HomeScreen() {
+  const styles = useStyles();
+
   return (
     <View style={styles.container}>
-      <ActionButton title="Awesome Button" radius="xl" outlined />
+      <ActionButton title="Awesome Button" />
     </View>
   );
 }

@@ -8,7 +8,7 @@ import {
   View,
 } from 'react-native';
 import { Button, ButtonProps } from '@rneui/base';
-import styles from './ActionButton.styles';
+import useStyles from './ActionButton.styles';
 
 export interface ActionButtonProps extends Omit<ButtonProps, 'color'> {
   outlined?: boolean;
@@ -31,6 +31,7 @@ const ActionButton = ({
   TouchableComponent,
   ...props
 }: ActionButtonProps) => {
+  const styles = useStyles();
   const defaultButtonStyle = useMemo(() => {
     let style = { ...styles.button };
     if (outlined) {
@@ -125,6 +126,11 @@ const ActionButton = ({
       />
     </View>
   );
+};
+
+ActionButton.defaultProps = {
+  radius: 'xl',
+  size: 'md',
 };
 
 export default ActionButton;
