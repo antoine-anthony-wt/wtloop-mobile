@@ -57,6 +57,7 @@ const useStyles = makeStyles((theme) => ({
   },
   arrivalTime: {
     color: theme.colors.primary,
+    fontWeight: '800',
   },
   qrCodeButton: {
     borderWidth: 1,
