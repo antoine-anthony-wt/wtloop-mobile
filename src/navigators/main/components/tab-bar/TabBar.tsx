@@ -3,7 +3,9 @@ import { View, Pressable, Text } from 'react-native';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { BagIcon, TicketIcon, UserIcon } from '~assets/images/icons';
-import styles from './TabBar.styles';
+import { TripBanner } from '../trip-banner/TripBanner';
+import { useTheme } from '@rneui/themed';
+import useStyles from './TabBar.styles';
 
 const TAB_BAR_HEIGHT = 48;
 const ITEM_SIZE = 22;
@@ -15,6 +17,8 @@ export const TabBar = ({
 }: BottomTabBarProps) => {
   const bottomSafeArea = useSafeAreaInsets().bottom;
   const tabBarHeight = TAB_BAR_HEIGHT + bottomSafeArea;
+  const { theme } = useTheme();
+  const styles = useStyles();
 
   const renderIcon = (index: number, color?: string) => {
     switch (index) {
@@ -33,6 +37,10 @@ export const TabBar = ({
 
   return (
     <View>
+      <TripBanner
+        onPress={() => console.log('on press trip banner')}
+        onPressQR={() => console.log('on press qr code')}
+      />
       <View style={[styles.container, { height: tabBarHeight }]}>
         {state.routes.map((route: any, index: number) => {
           const { options } = descriptors[route.key];
@@ -44,7 +52,7 @@ export const TabBar = ({
               : route.name;
 
           const isFocused = state.index === index;
-          const color = isFocused ? 'black' : 'gray';
+          const color = isFocused ? theme.colors.black : theme.colors.grey0;
 
           const onPress = () => {
             const event = navigation.emit({

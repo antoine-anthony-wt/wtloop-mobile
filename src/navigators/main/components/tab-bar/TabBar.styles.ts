@@ -1,10 +1,10 @@
-import { StyleSheet } from 'react-native';
+import { makeStyles } from '@rneui/themed';
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((theme) => ({
   container: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    backgroundColor: 'white',
+    backgroundColor: theme.colors.white,
   },
   itemContainer: {
     flex: 1,
@@ -25,6 +25,6 @@ const styles = StyleSheet.create({
     borderTopStartRadius: 16,
     borderTopEndRadius: 16,
   },
-});
+}));
 
-export default styles;
+export default useStyles;

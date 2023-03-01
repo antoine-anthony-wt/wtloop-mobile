@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   outlinedDisabledButton: {
     backgroundColor: 'transparent',
     borderWidth: 1.5,
-    borderColor: theme.colors.grey4,
+    borderColor: theme.colors.grey1,
   },
   buttonMedium: {
     minHeight: 48,
@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.colors.white,
   },
   outlinedDisabledTitle: {
-    color: theme.colors.grey4,
+    color: theme.colors.grey1,
   },
 }));
 
