@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-import ActionButton from '../../components/action-button/ActionButton';
+import { ActionButton } from '~components';
 import { styles } from './HomeScreen.styles';
 
 export default function HomeScreen() {

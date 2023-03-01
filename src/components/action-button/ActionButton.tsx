@@ -10,7 +10,7 @@ import {
 import { Button, ButtonProps } from '@rneui/base';
 import styles from './ActionButton.styles';
 
-interface ActionButtonProps extends Omit<ButtonProps, 'color'> {
+export interface ActionButtonProps extends Omit<ButtonProps, 'color'> {
   outlined?: boolean;
   reversed?: boolean;
   userInteractionDisabled?: boolean;
