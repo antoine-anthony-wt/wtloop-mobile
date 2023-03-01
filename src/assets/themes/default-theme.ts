@@ -4,6 +4,7 @@ import { colors } from './constants/colors';
 const defaultTheme = createTheme({
   lightColors: {
     primary: colors.mint,
+    secondary: colors.darkMint,
     white: colors.white,
     black: colors.black,
     grey0: colors.grey,
