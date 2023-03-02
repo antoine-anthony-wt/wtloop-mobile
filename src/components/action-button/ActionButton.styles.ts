@@ -43,7 +43,8 @@ const useStyles = makeStyles((theme) => ({
   title: {
     alignSelf: 'center',
     paddingHorizontal: 4,
-    ...theme.typography({ color: theme.colors.white, isBold: true }).default,
+    ...theme.typography({ color: theme.colors.white, fontWeight: 'bold' })
+      .default,
   },
   mediumTitle: {
     fontSize: 18,

@@ -1,4 +1,5 @@
 import { makeStyles } from '@rneui/themed';
+import { Platform } from 'react-native';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -9,16 +10,18 @@ const useStyles = makeStyles((theme) => ({
   itemContainer: {
     flex: 1,
     flexGrow: 1,
-    marginTop: theme.spacing.xs,
+    paddingTop: Platform.select({
+      ios: theme.spacing.xs,
+      android: theme.spacing.xxs,
+    }),
   },
   item: {
-    height: 44,
     justifyContent: 'center',
     alignItems: 'center',
   },
   itemText: {
-    // fontFamily: 'Roboto-Regular',
-    fontSize: 11,
+    ...theme.typography().caption,
+    fontSize: 12,
     marginTop: theme.spacing.xxs,
   },
 }));
