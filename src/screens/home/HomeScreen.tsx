@@ -1,9 +1,9 @@
 import React from 'react';
 import { View } from 'react-native';
 import { ActionButton } from '~components';
-import useStyles from './BookScreen.styles';
+import useStyles from './HomeScreen.styles';
 
-export default function BookScreen() {
+export default function HomeScreen() {
   const styles = useStyles();
 
   return (
@@ -13,4 +13,4 @@ export default function BookScreen() {
   );
 }
 
-export const BookScreenName = 'Book';
+export const HomeScreenName = 'Book';

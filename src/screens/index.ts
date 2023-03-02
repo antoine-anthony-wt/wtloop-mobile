@@ -1,1 +1,1 @@
-export { default as BookScreen, BookScreenName } from './book/BookScreen';
+export { default as HomeScreen, HomeScreenName } from './home/HomeScreen';
