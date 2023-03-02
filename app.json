@@ -3,7 +3,7 @@
     "name": "wtloop-mobile",
     "slug": "wtloop-mobile",
     "version": "1.0.0",
-    "sdkVersion": "47.0.0",
+    "sdkVersion": "47.0.12",
     "assetBundlePatterns": [
       "**/*"
     ],
