@@ -2,31 +2,35 @@ import React from 'react';
 import { View } from 'react-native';
 import {
   BottomTabBarProps,
-  BottomTabNavigationProp,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
-import { HomeScreen, HomeScreenName } from '~screens';
 import { TabBar } from './components/tab-bar/TabBar';
-import { HyperloopLogo } from '~assets/images';
+import {
+  HomeNavigator,
+  HomeNavigatorName,
+  HomeNavigatorParamList,
+} from '~navigators/home/HomeNavigator';
+import { NavigatorScreenParams } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '~navigators/root/RootNavigator';
 
-export type MainBottomTabParamList = {
-  [HomeScreenName]: undefined;
+export type MainNavigatorParamList = {
+  [HomeNavigatorName]: NavigatorScreenParams<HomeNavigatorParamList>;
   Trips: undefined;
   Profile: undefined;
 };
 
-const Tab = createBottomTabNavigator<MainBottomTabParamList>();
+const Tab = createBottomTabNavigator<MainNavigatorParamList>();
 const tabBar = (props: BottomTabBarProps) => <TabBar {...props} />;
-const hyperloopLogo = () => <HyperloopLogo />;
 const EmptyComponent = () => <View />;
 
 export default function MainNavigator() {
   return (
     <Tab.Navigator tabBar={tabBar}>
       <Tab.Screen
-        name={HomeScreenName}
-        component={HomeScreen}
-        options={{ headerTitle: hyperloopLogo }}
+        name={HomeNavigatorName}
+        component={HomeNavigator}
+        options={{ headerShown: false }}
       />
       <Tab.Screen name="Trips" component={EmptyComponent} />
       <Tab.Screen name="Profile" component={EmptyComponent} />
@@ -36,7 +40,7 @@ export default function MainNavigator() {
 
 export const MainNavigatorName = 'MainNavigator';
 
-export type HomeScreenNavigationProp = BottomTabNavigationProp<
-  MainBottomTabParamList,
-  'Home'
+export type HomeNavigationProp = NativeStackNavigationProp<
+  RootStackParamList & MainNavigatorParamList,
+  typeof HomeNavigatorName
 >;
