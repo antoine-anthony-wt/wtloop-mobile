@@ -13,6 +13,7 @@ import {
 import { NavigatorScreenParams } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '~navigators/root/RootNavigator';
+import { HomeScreenName } from '~screens';
 
 export type MainNavigatorParamList = {
   [HomeNavigatorName]: NavigatorScreenParams<HomeNavigatorParamList>;
@@ -30,7 +31,7 @@ export default function MainNavigator() {
       <Tab.Screen
         name={HomeNavigatorName}
         component={HomeNavigator}
-        options={{ headerShown: false }}
+        options={{ headerShown: false, tabBarLabel: HomeScreenName }}
       />
       <Tab.Screen name="Trips" component={EmptyComponent} />
       <Tab.Screen name="Profile" component={EmptyComponent} />
