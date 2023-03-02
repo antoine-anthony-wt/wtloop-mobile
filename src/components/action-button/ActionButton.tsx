@@ -129,7 +129,7 @@ const ActionButton = ({
 };
 
 ActionButton.defaultProps = {
-  radius: 'xl',
+  radius: 'lg',
   size: 'md',
 };
 

@@ -5,12 +5,12 @@ import {
   BottomTabNavigationProp,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
-import { HomeScreen, HomeScreenName } from '~screens';
+import { BookScreen, BookScreenName } from '~screens';
 import { TabBar } from './components/tab-bar/TabBar';
 import { HyperloopLogo } from '~assets/images';
 
 export type MainBottomTabParamList = {
-  [HomeScreenName]: undefined;
+  [BookScreenName]: undefined;
   Trips: undefined;
   Profile: undefined;
 };
@@ -24,8 +24,8 @@ export default function MainNavigator() {
   return (
     <Tab.Navigator tabBar={tabBar}>
       <Tab.Screen
-        name={HomeScreenName}
-        component={HomeScreen}
+        name={BookScreenName}
+        component={BookScreen}
         options={{ headerTitle: hyperloopLogo }}
       />
       <Tab.Screen name="Trips" component={EmptyComponent} />
@@ -36,7 +36,7 @@ export default function MainNavigator() {
 
 export const MainNavigatorName = 'MainNavigator';
 
-export type HomeScreenNavigationProp = BottomTabNavigationProp<
+export type BookScreenNavigationProp = BottomTabNavigationProp<
   MainBottomTabParamList,
   'Home'
 >;

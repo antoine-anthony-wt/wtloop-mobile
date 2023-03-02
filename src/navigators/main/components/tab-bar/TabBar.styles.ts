@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
   itemContainer: {
     flex: 1,
     flexGrow: 1,
-    marginTop: 8,
+    marginTop: theme.spacing.xs,
   },
   item: {
     height: 44,
@@ -19,11 +19,7 @@ const useStyles = makeStyles((theme) => ({
   itemText: {
     // fontFamily: 'Roboto-Regular',
     fontSize: 11,
-    marginTop: 4,
-  },
-  clockStatusBar: {
-    borderTopStartRadius: 16,
-    borderTopEndRadius: 16,
+    marginTop: theme.spacing.xxs,
   },
 }));
 
