@@ -24,10 +24,18 @@ const useStyles = makeStyles((theme) => ({
     marginHorizontal: theme.spacing.lg,
     marginTop: -theme.spacing.xxl,
   },
-  carousel: {
+  offersContainer: {
+    alignSelf: 'center',
+    marginVertical: theme.spacing.xxl,
+  },
+  offersTitle: {
+    ...theme.typography().caption,
+    marginHorizontal: theme.spacing.lg,
+  },
+  offersCarousel: {
     width: ScreenWidth,
     height: ScreenWidth,
-    marginVertical: 20,
+    marginVertical: 0,
   },
 }));
 

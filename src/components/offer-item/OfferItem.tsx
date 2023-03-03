@@ -2,7 +2,7 @@ import React from 'react';
 import {
   StyleProp,
   Text,
-  TouchableOpacity,
+  TouchableHighlight,
   View,
   ViewStyle,
 } from 'react-native';
@@ -20,14 +20,17 @@ const OfferItem = ({ offer, containerStyle, onPress }: OfferItemProps) => {
   const styles = useStyles();
 
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableHighlight
+      onPress={onPress}
+      delayPressIn={100}
+      delayPressOut={100}>
       <View style={[styles.container, containerStyle]}>
         <FastImage source={{ uri: offer.imageUrl }} style={styles.image} />
         <View style={styles.titleContainer}>
           <Text style={styles.title}>{offer.title}</Text>
         </View>
       </View>
-    </TouchableOpacity>
+    </TouchableHighlight>
   );
 };
 

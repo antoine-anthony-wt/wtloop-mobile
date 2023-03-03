@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Image, ScrollView, View } from 'react-native';
+import { Image, ScrollView, Text, View } from 'react-native';
 import { FocusAwareStatusBar, SearchBar } from '~components';
 import { useTheme } from '@rneui/themed';
 import useStyles from './HomeScreen.styles';
@@ -28,7 +28,11 @@ export default function HomeScreen() {
         barStyle="dark-content"
         backgroundColor={theme.colors.background}
       />
-      <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        style={styles.scroll}
+        showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="always"
+        nestedScrollEnabled>
         <Image
           style={styles.map}
           source={require('~assets/images/travel-map.png')}
@@ -43,28 +47,31 @@ export default function HomeScreen() {
             containerStyle: styles.mapIcon,
           }}
         />
-        <Carousel
-          vertical={false}
-          width={ScreenWidth}
-          style={styles.carousel}
-          loop
-          pagingEnabled
-          snapEnabled
-          autoPlay
-          autoPlayInterval={5000}
-          mode="parallax"
-          modeConfig={{
-            parallaxScrollingScale: 0.9,
-            parallaxScrollingOffset: 50,
-          }}
-          data={items}
-          renderItem={({ item }) => (
-            <OfferItem
-              offer={item}
-              onPress={() => console.log('on press offer')}
-            />
-          )}
-        />
+        <View style={styles.offersContainer}>
+          <Text style={styles.offersTitle}>My Offers</Text>
+          <Carousel
+            vertical={false}
+            width={ScreenWidth}
+            style={styles.offersCarousel}
+            loop
+            pagingEnabled
+            snapEnabled
+            autoPlay
+            autoPlayInterval={5000}
+            mode="parallax"
+            modeConfig={{
+              parallaxScrollingScale: 0.9,
+              parallaxScrollingOffset: 50,
+            }}
+            data={items}
+            renderItem={({ item }) => (
+              <OfferItem
+                offer={item}
+                onPress={() => console.log('on press offer')}
+              />
+            )}
+          />
+        </View>
       </ScrollView>
     </View>
   );

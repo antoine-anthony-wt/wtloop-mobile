@@ -1,4 +1,5 @@
 import '@rneui/themed';
+import { TextStyle } from 'react-native';
 
 declare module '@rneui/themed' {
   export interface Colors {
