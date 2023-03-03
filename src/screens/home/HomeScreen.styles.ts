@@ -1,3 +1,4 @@
+import { ScreenWidth } from '@rneui/base';
 import { makeStyles } from '@rneui/themed';
 
 const useStyles = makeStyles((theme) => ({
@@ -23,8 +24,10 @@ const useStyles = makeStyles((theme) => ({
     marginHorizontal: theme.spacing.lg,
     marginTop: -theme.spacing.xxl,
   },
-  carouselContainer: {
-    alignItems: 'center',
+  carousel: {
+    width: ScreenWidth,
+    height: ScreenWidth,
+    marginVertical: 20,
   },
 }));
 

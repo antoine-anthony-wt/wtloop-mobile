@@ -5,7 +5,7 @@ import { useTheme } from '@rneui/themed';
 import useStyles from './HomeScreen.styles';
 import OfferItem from '~components/offer-item/OfferItem';
 import Carousel from 'react-native-reanimated-carousel';
-import { ScreenHeight, ScreenWidth } from '@rneui/base';
+import { ScreenWidth } from '@rneui/base';
 
 export default function HomeScreen() {
   const styles = useStyles();
@@ -28,7 +28,7 @@ export default function HomeScreen() {
         barStyle="dark-content"
         backgroundColor={theme.colors.background}
       />
-      <ScrollView style={styles.scroll}>
+      <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>
         <Image
           style={styles.map}
           source={require('~assets/images/travel-map.png')}
@@ -43,33 +43,28 @@ export default function HomeScreen() {
             containerStyle: styles.mapIcon,
           }}
         />
-        <View style={styles.carouselContainer}>
-          <Carousel
-            vertical={false}
-            width={ScreenWidth}
-            height={ScreenHeight * 0.6}
-            style={{
-              width: ScreenWidth,
-            }}
-            loop
-            pagingEnabled
-            snapEnabled
-            autoPlay
-            autoPlayInterval={5000}
-            mode="parallax"
-            modeConfig={{
-              parallaxScrollingScale: 0.9,
-              parallaxScrollingOffset: 50,
-            }}
-            data={items}
-            renderItem={({ item }) => (
-              <OfferItem
-                offer={item}
-                onPress={() => console.log('on press offer')}
-              />
-            )}
-          />
-        </View>
+        <Carousel
+          vertical={false}
+          width={ScreenWidth}
+          style={styles.carousel}
+          loop
+          pagingEnabled
+          snapEnabled
+          autoPlay
+          autoPlayInterval={5000}
+          mode="parallax"
+          modeConfig={{
+            parallaxScrollingScale: 0.9,
+            parallaxScrollingOffset: 50,
+          }}
+          data={items}
+          renderItem={({ item }) => (
+            <OfferItem
+              offer={item}
+              onPress={() => console.log('on press offer')}
+            />
+          )}
+        />
       </ScrollView>
     </View>
   );
