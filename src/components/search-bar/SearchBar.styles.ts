@@ -3,7 +3,6 @@ import { makeStyles } from '@rneui/themed';
 const useStyles = makeStyles((theme) => ({
   container: {
     minHeight: 56,
-    flexDirection: 'row',
     backgroundColor: theme.colors.background,
     borderRadius: theme.radius.md,
     shadowColor: theme.colors.shadow,

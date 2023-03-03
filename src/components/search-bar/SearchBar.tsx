@@ -1,8 +1,19 @@
 import React, { useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
-import { Input, SearchBarProps } from '@rneui/base';
+import { Input, SearchBarProps as BaseSearchBarProps } from '@rneui/base';
 import useStyles from './SearchBar.styles';
 import { useTheme } from '@rneui/themed';
+
+export type SearchBarProps = Omit<
+  BaseSearchBarProps,
+  | 'clearIcon'
+  | 'onClear'
+  | 'cancelIcon'
+  | 'onCancel'
+  | 'showCancel'
+  | 'platform'
+  | 'round'
+>;
 
 const SearchBar = (props: SearchBarProps) => {
   const [focused, setFocused] = useState<boolean>(false);
