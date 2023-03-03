@@ -23,6 +23,9 @@ const useStyles = makeStyles((theme) => ({
     marginHorizontal: theme.spacing.lg,
     marginTop: -theme.spacing.xxl,
   },
+  carouselContainer: {
+    alignItems: 'center',
+  },
 }));
 
 export default useStyles;

@@ -1,12 +1,26 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Image, ScrollView, View } from 'react-native';
 import { FocusAwareStatusBar, SearchBar } from '~components';
 import { useTheme } from '@rneui/themed';
 import useStyles from './HomeScreen.styles';
+import OfferItem from '~components/offer-item/OfferItem';
+import Carousel from 'react-native-reanimated-carousel';
+import { ScreenHeight, ScreenWidth } from '@rneui/base';
 
 export default function HomeScreen() {
   const styles = useStyles();
   const { theme } = useTheme();
+  const items = useMemo(
+    () => [
+      {
+        id: 'xyx987',
+        title: 'Go to First Class and get your free whisky!',
+        imageUrl:
+          'https://hips.hearstapps.com/hmg-prod/images/whiskey-being-poured-into-a-glass-royalty-free-image-1663870436.jpg',
+      },
+    ],
+    [],
+  );
 
   return (
     <View style={styles.container}>
@@ -14,7 +28,7 @@ export default function HomeScreen() {
         barStyle="dark-content"
         backgroundColor={theme.colors.background}
       />
-      <ScrollView contentContainerStyle={styles.scroll}>
+      <ScrollView style={styles.scroll}>
         <Image
           style={styles.map}
           source={require('~assets/images/travel-map.png')}
@@ -29,6 +43,33 @@ export default function HomeScreen() {
             containerStyle: styles.mapIcon,
           }}
         />
+        <View style={styles.carouselContainer}>
+          <Carousel
+            vertical={false}
+            width={ScreenWidth}
+            height={ScreenHeight * 0.6}
+            style={{
+              width: ScreenWidth,
+            }}
+            loop
+            pagingEnabled
+            snapEnabled
+            autoPlay
+            autoPlayInterval={5000}
+            mode="parallax"
+            modeConfig={{
+              parallaxScrollingScale: 0.9,
+              parallaxScrollingOffset: 50,
+            }}
+            data={items}
+            renderItem={({ item }) => (
+              <OfferItem
+                offer={item}
+                onPress={() => console.log('on press offer')}
+              />
+            )}
+          />
+        </View>
       </ScrollView>
     </View>
   );
