@@ -1,6 +1,11 @@
 import '@rneui/themed';
 
 declare module '@rneui/themed' {
+  export interface Colors {
+    placeholder?: string;
+    shadow?: string;
+  }
+
   export type Size = {
     xxs?: number;
     xs?: number;
@@ -26,14 +31,15 @@ declare module '@rneui/themed' {
   };
 
   export interface ThemeSpacing extends Size {}
+  export interface Radius extends Size {}
 
   export interface CreateThemeOptions {
-    radius?: Size;
+    radius?: Radius;
     typography: (props?: TypographyProps) => Typography;
   }
 
   export interface Theme {
-    radius: Radius = {};
+    radius: Radius;
     typography: (props?: TypographyProps) => Typography;
   }
 }
