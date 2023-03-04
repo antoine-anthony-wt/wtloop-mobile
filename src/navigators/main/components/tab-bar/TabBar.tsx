@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Pressable, Text } from 'react-native';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { BagIcon, TicketIcon, UserIcon } from '~assets/images/icons';
+import { BagIcon, TicketIcon, UserIcon } from '@wtloop/assets/images/icons';
 import { TripBanner } from '../trip-banner/TripBanner';
 import { useTheme } from '@rneui/themed';
 import useStyles from './TabBar.styles';

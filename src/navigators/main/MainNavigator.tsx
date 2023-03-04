@@ -5,9 +5,9 @@ import {
   BottomTabNavigationProp,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
-import { HomeScreen, HomeScreenName } from '~screens';
+import { HomeScreen, HomeScreenName } from '@wtloop/screens';
 import { TabBar } from './components/tab-bar/TabBar';
-import { HyperloopLogo } from '~assets/images';
+import { HyperloopLogo } from '@wtloop/assets/images';
 
 export type MainBottomTabParamList = {
   [HomeScreenName]: undefined;

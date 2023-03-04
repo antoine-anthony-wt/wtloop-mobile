@@ -3,9 +3,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
-import { RootNavigator } from '~navigators';
+import { RootNavigator } from '@wtloop/navigators';
 import { ThemeProvider } from '@rneui/themed';
-import defaultTheme from '~assets/themes/default-theme';
+import defaultTheme from '@wtloop/assets/themes/default-theme';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -87,13 +87,12 @@ export default function App() {
   }, [expoPushToken]);
 
   return (
-
     <ThemeProvider theme={defaultTheme}>
-    <QueryClientProvider client={queryClient}>
-      <NavigationContainer>
-        <RootNavigator />
-      </NavigationContainer>
-    </QueryClientProvider>
+      <QueryClientProvider client={queryClient}>
+        <NavigationContainer>
+          <RootNavigator />
+        </NavigationContainer>
+      </QueryClientProvider>
     </ThemeProvider>
   );
 }

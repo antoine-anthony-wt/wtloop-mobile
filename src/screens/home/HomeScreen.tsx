@@ -1,27 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, ActivityIndicator } from 'react-native';
-import { useQuery } from 'react-query';
 import { useFetchAEM } from '../../hooks/useFetchAEM';
-import { GET_AEM_CONTENT } from '../../graphql/queries';
-import { ActionButton } from '~components';
+import { ActionButton } from '@wtloop/components';
 import useStyles from './HomeScreen.styles';
 
 export default function HomeScreen() {
   const styles = useStyles();
-  const { fetchAEM } = useFetchAEM<any>(GET_AEM_CONTENT);
+  const { isLoading, error, data: content } = useFetchAEM();
 
-  const { isLoading, error, data } = useQuery('aem', async () => {
-    const response = await fetchAEM();
-    return response;
-  });
-
-  if (isLoading) {
-    console.log('loading...');
-  }
-
-  if (error) {
-    console.log(error);
-  }
+  useEffect(() => {
+    console.log('isLoading:', isLoading);
+    console.log('error:', error);
+    console.log('content:', content);
+  }, [isLoading, error, content]);
 
   return (
     <View style={styles.container}>

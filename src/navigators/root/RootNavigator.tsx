@@ -2,7 +2,7 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MainNavigator, {
   MainNavigatorName,
-} from '~navigators/main/MainNavigator';
+} from '@wtloop/navigators/main/MainNavigator';
 
 export type RootStackParamList = {
   [MainNavigatorName]: undefined;

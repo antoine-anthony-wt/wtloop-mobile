@@ -8,7 +8,7 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import useStyles from './TripBanner.styles';
 import { useTheme } from '@rneui/themed';
-import { QRIcon } from '~assets/images';
+import { QRIcon } from '@wtloop/assets/images';
 
 export interface TripBannerProps {
   onPress: () => void;
