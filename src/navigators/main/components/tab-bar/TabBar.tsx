@@ -6,7 +6,7 @@ import { BagIcon, TicketIcon, UserIcon } from '~assets/images/icons';
 import { TripBanner } from '../trip-banner/TripBanner';
 import { useTheme } from '@rneui/themed';
 import useStyles from './TabBar.styles';
-import { TicketScreenName } from '~screens/ticket/TicketScreen';
+import { TicketScreenName } from '~screens';
 
 const TAB_BAR_HEIGHT = Platform.select({ ios: 48, android: 52 });
 const ITEM_SIZE = 22;

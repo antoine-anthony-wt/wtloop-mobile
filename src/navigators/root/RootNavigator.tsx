@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MainNavigator, {
   MainNavigatorName,
 } from '~navigators/main/MainNavigator';
-import TicketScreen, { TicketScreenName } from '~screens/ticket/TicketScreen';
+import { TicketScreen, TicketScreenName } from '~screens';
 import { useCommonNavBarOptions } from '~navigators/utils/useCommonNavBarOptions';
 import { useTheme } from '@rneui/themed';
 import { closeButton } from '~navigators/components';
