@@ -63,6 +63,9 @@ export default function HomeScreen() {
               parallaxScrollingScale: 0.9,
               parallaxScrollingOffset: 50,
             }}
+            panGestureHandlerProps={{
+              activeOffsetX: [-10, 10],
+            }}
             data={items}
             renderItem={({ item }) => (
               <OfferItem

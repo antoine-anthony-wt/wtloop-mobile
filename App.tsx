@@ -5,16 +5,19 @@ import { RootNavigator } from '~navigators';
 import { ThemeProvider } from '@rneui/themed';
 import defaultTheme from '~assets/themes/default-theme';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 export default function App() {
   return (
-    <GestureHandlerRootView style={styles.container}>
-      <ThemeProvider theme={defaultTheme}>
-        <NavigationContainer>
-          <RootNavigator />
-        </NavigationContainer>
-      </ThemeProvider>
-    </GestureHandlerRootView>
+    <SafeAreaProvider>
+      <GestureHandlerRootView style={styles.container}>
+        <ThemeProvider theme={defaultTheme}>
+          <NavigationContainer>
+            <RootNavigator />
+          </NavigationContainer>
+        </ThemeProvider>
+      </GestureHandlerRootView>
+    </SafeAreaProvider>
   );
 }
 

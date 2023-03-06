@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'hidden',
   },
   image: {
-    height: '50%',
+    height: '55%',
     width: '100%',
   },
   titleContainer: {
