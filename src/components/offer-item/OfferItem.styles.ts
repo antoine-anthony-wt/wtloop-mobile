@@ -2,9 +2,18 @@ import { makeStyles } from '@rneui/themed';
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    backgroundColor: theme.colors.secondary,
     width: '100%',
     aspectRatio: 1,
+    borderRadius: theme.radius.xxs,
+  },
+  wrapper: {
+    flex: 1,
+  },
+  content: {
+    width: '100%',
+    height: '100%',
+    aspectRatio: 1,
+    backgroundColor: theme.colors.secondary,
     borderRadius: theme.radius.xxs,
     overflow: 'hidden',
   },
@@ -21,6 +30,11 @@ const useStyles = makeStyles((theme) => ({
   title: {
     ...theme.typography({ color: theme.colors.white, fontWeight: '600' })
       .heading,
+  },
+  tagButton: {
+    alignSelf: 'flex-end',
+    marginRight: '5%',
+    marginTop: '-7%',
   },
 }));
 

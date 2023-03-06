@@ -10,7 +10,6 @@ const useStyles = makeStyles((theme) => ({
     shadowRadius: 8,
     shadowOpacity: 0.2,
     elevation: 6,
-    overflow: 'visible',
   },
   containerFocused: {
     shadowColor: theme.colors.secondary,
