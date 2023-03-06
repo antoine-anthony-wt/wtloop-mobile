@@ -6,6 +6,7 @@ import useStyles from './HomeScreen.styles';
 import OfferItem from '~components/offer-item/OfferItem';
 import Carousel from 'react-native-reanimated-carousel';
 import { ScreenWidth } from '@rneui/base';
+import InfoItem from './components/info-item/InfoItem';
 
 export default function HomeScreen() {
   const styles = useStyles();
@@ -47,34 +48,38 @@ export default function HomeScreen() {
             containerStyle: styles.mapIcon,
           }}
         />
-        <View style={styles.offersContainer}>
-          <Text style={styles.offersTitle}>My Offers</Text>
-          <Carousel
-            vertical={false}
-            width={ScreenWidth}
-            style={styles.offersCarousel}
-            loop
-            pagingEnabled
-            snapEnabled
-            autoPlay
-            autoPlayInterval={5000}
-            mode="parallax"
-            modeConfig={{
-              parallaxScrollingScale: 0.9,
-              parallaxScrollingOffset: 50,
-            }}
-            panGestureHandlerProps={{
-              activeOffsetX: [-10, 10],
-            }}
-            data={items}
-            renderItem={({ item }) => (
-              <OfferItem
-                offer={item}
-                onPress={() => console.log('on press offer')}
-              />
-            )}
-          />
-        </View>
+        {<InfoItem onPress={() => console.log('hey')} />}
+        {
+          <View style={styles.offersContainer}>
+            <Text style={styles.offersTitle}>My Offers</Text>
+            <Carousel
+              vertical={false}
+              width={ScreenWidth}
+              style={styles.offersCarousel}
+              loop
+              pagingEnabled
+              snapEnabled
+              autoPlay
+              autoPlayInterval={5000}
+              mode="parallax"
+              modeConfig={{
+                parallaxScrollingScale: 0.9,
+                parallaxScrollingOffset: 50,
+              }}
+              panGestureHandlerProps={{
+                activeOffsetX: [-10, 10],
+              }}
+              data={items}
+              renderItem={({ item }) => (
+                <OfferItem
+                  offer={item}
+                  tagButtonTitle="UPGRADE HERE"
+                  onPress={() => console.log('on press offer')}
+                />
+              )}
+            />
+          </View>
+        }
       </ScrollView>
     </View>
   );
