@@ -27,7 +27,7 @@ export default function RootNavigator() {
         component={TicketScreen}
         options={{
           ...commonOptions,
-          presentation: 'modal',
+          presentation: 'fullScreenModal',
           headerShown: true,
           headerStyle: {
             backgroundColor: theme.colors.black,
