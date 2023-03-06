@@ -26,15 +26,28 @@ const useStyles = makeStyles((theme) => ({
     borderTopLeftRadius: theme.radius.sm,
     borderTopRightRadius: theme.radius.sm,
   },
-  titleContainer: {
+  infoContainer: {
     flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  titleContainer: {
+    flex: -1,
     paddingLeft: theme.spacing.xxl,
     width: '60%',
-    justifyContent: 'center',
   },
   title: {
     ...theme.typography({ color: theme.colors.white, fontWeight: '600' })
       .heading,
+  },
+  buttonContainer: {
+    flex: 1,
+    alignItems: 'flex-start',
+  },
+  buttonTitle: {
+    ...theme.typography({ color: theme.colors.white, isUnderline: true })
+      .default,
+    marginHorizontal: theme.spacing.xs,
   },
 }));
 

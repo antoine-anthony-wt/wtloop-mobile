@@ -1,3 +1,5 @@
+import { Icon } from '@rneui/base';
+import { useTheme } from '@rneui/themed';
 import React from 'react';
 import { Text, TouchableHighlight, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
@@ -9,6 +11,7 @@ export interface InfoItemProps {
 
 const InfoItem = ({ onPress }: InfoItemProps) => {
   const styles = useStyles();
+  const { theme } = useTheme();
 
   return (
     <TouchableHighlight
@@ -21,8 +24,19 @@ const InfoItem = ({ onPress }: InfoItemProps) => {
           source={require('~assets/images/first-class-lounge.png')}
           style={styles.image}
         />
-        <View style={styles.titleContainer}>
-          <Text style={styles.title}>Head to the First Class lounge</Text>
+        <View style={styles.infoContainer}>
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>Head to the First Class lounge</Text>
+          </View>
+          <View style={styles.buttonContainer}>
+            <Icon
+              name="arrow-up-right"
+              type="feather"
+              color={theme.colors.white}
+              size={56}
+            />
+            <Text style={styles.buttonTitle}>{'How to\nget there?'}</Text>
+          </View>
         </View>
       </View>
     </TouchableHighlight>
