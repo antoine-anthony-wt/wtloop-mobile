@@ -1,12 +1,13 @@
 import React, { useMemo } from 'react';
 import { Image, ScrollView, Text, View } from 'react-native';
-import { FocusAwareStatusBar, SearchBar } from '~components';
+import { FocusAwareStatusBar, SearchBar, UpgradedTicket } from '~components';
 import { useTheme } from '@rneui/themed';
 import useStyles from './HomeScreen.styles';
-import OfferItem from '~components/offer-item/OfferItem';
+import { OfferItem } from '~components';
 import Carousel from 'react-native-reanimated-carousel';
 import { ScreenWidth } from '@rneui/base';
 import InfoItem from './components/info-item/InfoItem';
+import { PopupView } from '~components/popup-view';
 
 export default function HomeScreen() {
   const styles = useStyles();
@@ -22,6 +23,14 @@ export default function HomeScreen() {
     ],
     [],
   );
+
+  const showUpgradedPopup = () => {
+    PopupView.open({
+      content: <UpgradedTicket />,
+      onOpen: () => console.log('ON OPEN'),
+      onClose: () => console.log('ON CLOSE'),
+    });
+  };
 
   return (
     <View style={styles.container}>
@@ -74,7 +83,7 @@ export default function HomeScreen() {
                 <OfferItem
                   offer={item}
                   tagButtonTitle="UPGRADE HERE"
-                  onPress={() => console.log('on press offer')}
+                  onPress={showUpgradedPopup}
                 />
               )}
             />

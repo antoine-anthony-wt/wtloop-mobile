@@ -6,6 +6,7 @@ import { ThemeProvider } from '@rneui/themed';
 import defaultTheme from '~assets/themes/default-theme';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { PopupView } from '~components/popup-view';
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
         <ThemeProvider theme={defaultTheme}>
           <NavigationContainer>
             <RootNavigator />
+            <PopupView />
           </NavigationContainer>
         </ThemeProvider>
       </GestureHandlerRootView>
