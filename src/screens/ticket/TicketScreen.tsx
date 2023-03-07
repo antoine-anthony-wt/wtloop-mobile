@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-import { FocusAwareStatusBar } from '~components';
+import { FocusAwareStatusBar } from '@wtloop/components';
 import { useTheme } from '@rneui/themed';
 import useStyles from './TicketScreen.styles';
 

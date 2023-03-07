@@ -21,7 +21,7 @@ const InfoItem = ({ onPress }: InfoItemProps) => {
       delayPressOut={100}>
       <View style={styles.content}>
         <FastImage
-          source={require('~assets/images/first-class-lounge.png')}
+          source={require('@wtloop/assets/images/first-class-lounge.png')}
           style={styles.image}
         />
         <View style={styles.infoContainer}>

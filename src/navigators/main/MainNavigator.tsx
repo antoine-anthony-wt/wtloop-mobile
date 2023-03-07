@@ -9,11 +9,11 @@ import {
   HomeNavigator,
   HomeNavigatorName,
   HomeNavigatorParamList,
-} from '~navigators/home/HomeNavigator';
+} from '@wtloop/navigators/home/HomeNavigator';
 import { NavigatorScreenParams } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '~navigators/root/RootNavigator';
-import { HomeScreenName } from '~screens';
+import { RootStackParamList } from '@wtloop/navigators/root/RootNavigator';
+import { HomeScreenName } from '@wtloop/screens';
 
 export type MainNavigatorParamList = {
   [HomeNavigatorName]: NavigatorScreenParams<HomeNavigatorParamList>;

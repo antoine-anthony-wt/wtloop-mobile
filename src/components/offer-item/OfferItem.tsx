@@ -7,8 +7,8 @@ import {
   ViewStyle,
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import ActionButton from '~components/action-button/ActionButton';
-import { Offer } from '~types';
+import ActionButton from '@wtloop/components/action-button/ActionButton';
+import { Offer } from '@wtloop/types';
 import useStyles from './OfferItem.styles';
 
 export interface OfferItemProps {

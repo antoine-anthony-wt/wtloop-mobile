@@ -2,11 +2,11 @@ import React from 'react';
 import { View, Pressable, Text, Platform } from 'react-native';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { BagIcon, TicketIcon, UserIcon } from '~assets/images/icons';
+import { BagIcon, TicketIcon, UserIcon } from '@wtloop/assets/images/icons';
 import { TripBanner } from '../trip-banner/TripBanner';
 import { useTheme } from '@rneui/themed';
 import useStyles from './TabBar.styles';
-import { TicketScreenName } from '~screens';
+import { TicketScreenName } from '@wtloop/screens';
 
 const TAB_BAR_HEIGHT = Platform.select({ ios: 48, android: 52 });
 const ITEM_SIZE = 22;

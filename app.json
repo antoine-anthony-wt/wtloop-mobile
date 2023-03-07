@@ -1,9 +1,16 @@
 {
   "expo": {
-    "name": "hyperloop-mobile",
-    "slug": "hyperloop-mobile",
+    "name": "wtloop-mobile",
+    "slug": "wtloop-mobile",
     "version": "1.0.0",
     "sdkVersion": "47.0.12",
-    "assetBundlePatterns": ["**/*"]
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "04dd31b7-102b-463e-aaab-1e769081ef07"
+      }
+    }
   }
 }

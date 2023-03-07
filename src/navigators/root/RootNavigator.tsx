@@ -2,11 +2,11 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MainNavigator, {
   MainNavigatorName,
-} from '~navigators/main/MainNavigator';
-import { TicketScreen, TicketScreenName } from '~screens';
-import { useCommonNavBarOptions } from '~navigators/utils/useCommonNavBarOptions';
+} from '@wtloop/navigators/main/MainNavigator';
+import { TicketScreen, TicketScreenName } from '@wtloop/screens';
+import { useCommonNavBarOptions } from '@wtloop/navigators/utils/useCommonNavBarOptions';
 import { useTheme } from '@rneui/themed';
-import { closeButton } from '~navigators/components';
+import { closeButton } from '@wtloop/navigators/components';
 
 export type RootStackParamList = {
   [MainNavigatorName]: undefined;

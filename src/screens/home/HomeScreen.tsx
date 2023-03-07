@@ -1,17 +1,31 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { Image, ScrollView, Text, View } from 'react-native';
-import { FocusAwareStatusBar, SearchBar, UpgradedTicket } from '~components';
+import {
+  FocusAwareStatusBar,
+  SearchBar,
+  UpgradedTicket,
+} from '@wtloop/components';
 import { useTheme } from '@rneui/themed';
 import useStyles from './HomeScreen.styles';
-import { OfferItem } from '~components';
+import { OfferItem } from '@wtloop/components';
 import Carousel from 'react-native-reanimated-carousel';
 import { ScreenWidth } from '@rneui/base';
 import InfoItem from './components/info-item/InfoItem';
-import { PopupView } from '~components/popup-view';
+import { PopupView } from '@wtloop/components/popup-view';
+import { useFetchAEM } from '../../hooks/useFetchAEM';
 
 export default function HomeScreen() {
   const styles = useStyles();
   const { theme } = useTheme();
+
+  const { isLoading, error, data: content } = useFetchAEM();
+
+  useEffect(() => {
+    console.log('isLoading:', isLoading);
+    console.log('error:', error);
+    console.log('content:', content);
+  }, [isLoading, error, content]);
+
   const items = useMemo(
     () => [
       {
@@ -45,7 +59,7 @@ export default function HomeScreen() {
         nestedScrollEnabled>
         <Image
           style={styles.map}
-          source={require('~assets/images/travel-map.png')}
+          source={require('@wtloop/assets/images/travel-map.png')}
         />
         <SearchBar
           containerStyle={styles.searchBar}
