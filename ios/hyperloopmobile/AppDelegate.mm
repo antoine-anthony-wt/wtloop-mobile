@@ -1,5 +1,16 @@
 #import "AppDelegate.h"
 
+@import AEPCore;
+@import AEPAnalytics;
+@import AEPEdgeConsent;
+@import AEPEdgeIdentity;
+@import AEPIdentity;
+@import AEPLifecycle;
+@import AEPSignal;
+@import AEPServices;
+@import AEPUserProfile;
+@import AEPEdge;
+
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
@@ -33,32 +44,48 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  RCTAppSetupPrepareApp(application);
+    NSArray *extensionsToRegister = @[
+        AEPMobileAnalytics.class,
+        AEPMobileEdgeConsent.class,
+        AEPMobileEdgeIdentity.class,
+        AEPMobileIdentity.class,
+        AEPMobileLifecycle.class,
+        AEPMobileSignal.class,
+        AEPMobileUserProfile.class,
+        AEPMobileEdge.class
+    ];
+    [AEPMobileCore registerExtensions:extensionsToRegister completion:^{
+        [AEPMobileCore lifecycleStart:@{@"contextDataKey": @"contextDataVal"}];
+    }];
 
-  RCTBridge *bridge = [self.reactDelegate createBridgeWithDelegate:self launchOptions:launchOptions];
+    RCTAppSetupPrepareApp(application);
+    [AEPMobileCore configureWithAppId: @"4ef014d90ea4/b3df9cdc3584/launch-e73e92397c60-development"];
+
+    RCTBridge *bridge = [self.reactDelegate createBridgeWithDelegate:self launchOptions:launchOptions];
 
 #if RCT_NEW_ARCH_ENABLED
-  _contextContainer = std::make_shared<facebook::react::ContextContainer const>();
-  _reactNativeConfig = std::make_shared<facebook::react::EmptyReactNativeConfig const>();
-  _contextContainer->insert("ReactNativeConfig", _reactNativeConfig);
-  _bridgeAdapter = [[RCTSurfacePresenterBridgeAdapter alloc] initWithBridge:bridge contextContainer:_contextContainer];
-  bridge.surfacePresenter = _bridgeAdapter.surfacePresenter;
+    _contextContainer = std::make_shared<facebook::react::ContextContainer const>();
+    _reactNativeConfig = std::make_shared<facebook::react::EmptyReactNativeConfig const>();
+    _contextContainer->insert("ReactNativeConfig", _reactNativeConfig);
+    _bridgeAdapter = [[RCTSurfacePresenterBridgeAdapter alloc] initWithBridge:bridge contextContainer:_contextContainer];
+    bridge.surfacePresenter = _bridgeAdapter.surfacePresenter;
 #endif
 
-  NSDictionary *initProps = [self prepareInitialProps];
-  UIView *rootView = [self.reactDelegate createRootViewWithBridge:bridge moduleName:@"main" initialProperties:initProps];
+    NSDictionary *initProps = [self prepareInitialProps];
+    UIView *rootView = [[RCTRootView alloc] initWithBridge:bridge moduleName:@"main" initialProperties:initProps];
 
-  rootView.backgroundColor = [UIColor whiteColor];
-  self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-  UIViewController *rootViewController = [self.reactDelegate createRootViewController];
-  rootViewController.view = rootView;
-  self.window.rootViewController = rootViewController;
-  [self.window makeKeyAndVisible];
+    rootView.backgroundColor = [UIColor whiteColor];
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    UIViewController *rootViewController = [UIViewController new];
+    rootViewController.view = rootView;
+    self.window.rootViewController = rootViewController;
+    [self.window makeKeyAndVisible];
 
-  [super application:application didFinishLaunchingWithOptions:launchOptions];
+    [super application:application didFinishLaunchingWithOptions:launchOptions];
 
-  return YES;
+    return YES;
 }
+
 
 - (NSArray<id<RCTBridgeModule>> *)extraModulesForBridge:(RCTBridge *)bridge
 {
