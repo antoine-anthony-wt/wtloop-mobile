@@ -3,9 +3,9 @@ import {
   createNativeStackNavigator,
   NativeStackNavigationProp,
 } from '@react-navigation/native-stack';
-import { HomeScreen, HomeScreenName } from '~screens';
-import { useCommonNavBarOptions } from '~navigators/utils/useCommonNavBarOptions';
-import { HyperloopLogo } from '~assets/images';
+import { HomeScreen, HomeScreenName } from '@wtloop/screens';
+import { useCommonNavBarOptions } from '@wtloop/navigators/utils/useCommonNavBarOptions';
+import { HyperloopLogo } from '@wtloop/assets/images';
 
 const Stack = createNativeStackNavigator();
 
