@@ -5,14 +5,14 @@ const useStyles = makeStyles((theme) => ({
   container: {
     width: ScreenWidth,
     backgroundColor: theme.colors.background,
-    borderTopStartRadius: 22,
-    borderTopEndRadius: 22,
+    borderTopStartRadius: theme.radius.lg,
+    borderTopEndRadius: theme.radius.lg,
     overflow: 'hidden',
   },
   row: {
     flexDirection: 'row',
-    paddingHorizontal: 16,
-    paddingVertical: 8,
+    paddingHorizontal: theme.spacing.md,
+    paddingVertical: theme.spacing.xs,
     alignItems: 'center',
     justifyContent: 'space-between',
   },
@@ -28,45 +28,40 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
   },
   originDestination: {
-    color: theme.colors.black,
-    fontSize: 20,
-    fontWeight: '600',
+    ...theme.typography().subheading,
   },
   travelTime: {
-    color: theme.colors.grey0,
-    fontWeight: '500',
+    ...theme.typography({ color: theme.colors.grey3 }).caption,
   },
   travelTimeTitleContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     alignSelf: 'flex-start',
-    marginLeft: 4,
+    marginLeft: theme.spacing.xxs,
   },
   travelTimeTitle: {
-    color: theme.colors.secondary,
-    fontSize: 12,
-    fontWeight: '700',
+    ...theme.typography({ color: theme.colors.secondary, fontWeight: '600' })
+      .caption,
   },
   arrivalContainer: {
     flex: -1,
     alignItems: 'flex-end',
   },
   arrivalTitle: {
-    color: theme.colors.grey3,
-    fontWeight: '600',
+    ...theme.typography({ color: theme.colors.grey3 }).caption,
   },
   arrivalTime: {
-    color: theme.colors.primary,
-    fontWeight: '800',
+    ...theme.typography({ color: theme.colors.primary, fontWeight: '600' })
+      .caption,
   },
   qrCodeButton: {
     borderWidth: 1,
     borderColor: theme.colors.black,
-    borderRadius: 20,
-    paddingVertical: 6,
-    paddingHorizontal: 16,
+    borderRadius: theme.radius.xxl,
+    paddingVertical: theme.spacing.xs,
+    paddingHorizontal: theme.spacing.md,
+    marginRight: theme.spacing.sm,
     alignSelf: 'center',
-    marginRight: 12,
   },
 }));
 

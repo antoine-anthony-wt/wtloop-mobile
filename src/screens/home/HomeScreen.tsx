@@ -28,4 +28,4 @@ export default function HomeScreen() {
   );
 }
 
-export const HomeScreenName = 'Home';
+export const HomeScreenName = 'Book';

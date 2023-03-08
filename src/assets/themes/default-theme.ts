@@ -1,5 +1,5 @@
 import { createTheme } from '@rneui/themed';
-import { colors } from './constants/colors';
+import { colors, radius, spacing, typography } from './constants';
 
 const defaultTheme = createTheme({
   lightColors: {
@@ -14,6 +14,9 @@ const defaultTheme = createTheme({
     divider: colors.lightGrey,
     background: colors.white,
   },
+  spacing,
+  radius,
+  typography,
   mode: 'light',
 });
 
