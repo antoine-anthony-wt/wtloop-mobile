@@ -13,6 +13,8 @@ const defaultTheme = createTheme({
     grey3: colors.darkGrey,
     divider: colors.lightGrey,
     background: colors.white,
+    placeholder: colors.grey,
+    shadow: colors.grey,
   },
   spacing,
   radius,

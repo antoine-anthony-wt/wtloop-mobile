@@ -6,6 +6,7 @@ import { BagIcon, TicketIcon, UserIcon } from '@wtloop/assets/images/icons';
 import { TripBanner } from '../trip-banner/TripBanner';
 import { useTheme } from '@rneui/themed';
 import useStyles from './TabBar.styles';
+import { TicketScreenName } from '@wtloop/screens';
 
 const TAB_BAR_HEIGHT = Platform.select({ ios: 48, android: 52 });
 const ITEM_SIZE = 22;
@@ -35,12 +36,13 @@ export const TabBar = ({
     }
   };
 
+  const goToTicketScreen = () => {
+    navigation.navigate(TicketScreenName);
+  };
+
   return (
     <View>
-      <TripBanner
-        onPress={() => console.log('on press trip banner')}
-        onPressQR={() => console.log('on press qr code')}
-      />
+      <TripBanner onPress={goToTicketScreen} onPressQR={goToTicketScreen} />
       <View style={[styles.container, { height: tabBarHeight }]}>
         {state.routes.map((route: any, index: number) => {
           const { options } = descriptors[route.key];

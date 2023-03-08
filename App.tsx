@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import * as Device from 'expo-device';
@@ -6,20 +7,17 @@ import * as Notifications from 'expo-notifications';
 import { RootNavigator } from '@wtloop/navigators';
 import { ThemeProvider } from '@rneui/themed';
 import defaultTheme from '@wtloop/assets/themes/default-theme';
-
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: true,
-    shouldSetBadge: false,
-  }),
-});
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { PopupView } from '@wtloop/components/popup-view';
+import { Subscription } from 'expo-modules-core';
 
 export default function App() {
   const [expoPushToken, setExpoPushToken] = useState('');
-  const [notification, setNotification] = useState(false);
-  const notificationListener = useRef();
-  const responseListener = useRef();
+  const [notification, setNotification] =
+    useState<Notifications.Notification>();
+  const notificationListener = useRef<Subscription>();
+  const responseListener = useRef<Subscription>();
   const queryClient = new QueryClient();
 
   async function schedulePushNotification() {
@@ -34,7 +32,7 @@ export default function App() {
   }
 
   async function registerForPushNotificationsAsync() {
-    let token;
+    let token: string;
 
     if (Device.isDevice) {
       const { status: existingStatus } =
@@ -58,13 +56,14 @@ export default function App() {
   }
 
   useEffect(() => {
-    registerForPushNotificationsAsync().then((token) =>
-      setExpoPushToken(token),
-    );
+    registerForPushNotificationsAsync().then((token) => {
+      console.log(token);
+      setExpoPushToken(token);
+    });
 
     notificationListener.current =
-      Notifications.addNotificationReceivedListener((notification) => {
-        setNotification(notification);
+      Notifications.addNotificationReceivedListener((newNotification) => {
+        setNotification(newNotification);
       });
 
     responseListener.current =
@@ -87,12 +86,23 @@ export default function App() {
   }, [expoPushToken]);
 
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <QueryClientProvider client={queryClient}>
-        <NavigationContainer>
-          <RootNavigator />
-        </NavigationContainer>
-      </QueryClientProvider>
-    </ThemeProvider>
+    <SafeAreaProvider>
+      <GestureHandlerRootView style={styles.container}>
+        <ThemeProvider theme={defaultTheme}>
+          <QueryClientProvider client={queryClient}>
+            <NavigationContainer>
+              <RootNavigator />
+              <PopupView />
+            </NavigationContainer>
+          </QueryClientProvider>
+        </ThemeProvider>
+      </GestureHandlerRootView>
+    </SafeAreaProvider>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});

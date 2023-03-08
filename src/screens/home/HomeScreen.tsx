@@ -1,15 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import { View, Button } from 'react-native';
-import { useFetchAEM } from '../../hooks/useFetchAEM';
-import { ActionButton, AEMModal } from '@wtloop/components';
+import React, { useEffect, useMemo } from 'react';
+import { Image, ScrollView, Text, View } from 'react-native';
+import {
+  FocusAwareStatusBar,
+  SearchBar,
+  UpgradedTicket,
+} from '@wtloop/components';
+import { useTheme } from '@rneui/themed';
 import useStyles from './HomeScreen.styles';
+import { OfferItem } from '@wtloop/components';
+import Carousel from 'react-native-reanimated-carousel';
+import { ScreenWidth } from '@rneui/base';
+import InfoItem from './components/info-item/InfoItem';
+import { PopupView } from '@wtloop/components/popup-view';
+import { useFetchAEM } from '../../hooks/useFetchAEM';
 
 export default function HomeScreen() {
   const styles = useStyles();
-  const { isLoading, error, data: content } = useFetchAEM();
-  const [ visible, setVisible ] = useState(false);
+  const { theme } = useTheme();
 
-  const handleModalVisible = () => setVisible(prevState =>!prevState);
+  const { isLoading, error, data: content } = useFetchAEM();
 
   useEffect(() => {
     console.log('isLoading:', isLoading);
@@ -17,13 +26,84 @@ export default function HomeScreen() {
     console.log('content:', content);
   }, [isLoading, error, content]);
 
+  const items = useMemo(
+    () => [
+      {
+        id: 'xyx987',
+        title: 'Go to First Class and get your free whisky!',
+        imageUrl:
+          'https://hips.hearstapps.com/hmg-prod/images/whiskey-being-poured-into-a-glass-royalty-free-image-1663870436.jpg',
+      },
+    ],
+    [],
+  );
+
+  const showUpgradedPopup = () => {
+    PopupView.open({
+      content: <UpgradedTicket />,
+      onOpen: () => console.log('ON OPEN'),
+      onClose: () => console.log('ON CLOSE'),
+    });
+  };
+
   return (
     <View style={styles.container}>
-      <ActionButton title="Awesome Button" />
-      <AEMModal visible={visible} onRequestClose={handleModalVisible} />
-      <View>
-        <Button title="Show Modal" onPress={handleModalVisible} />
-      </View>
+      <FocusAwareStatusBar
+        barStyle="dark-content"
+        backgroundColor={theme.colors.background}
+      />
+      <ScrollView
+        style={styles.scroll}
+        showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="always"
+        nestedScrollEnabled>
+        <Image
+          style={styles.map}
+          source={require('@wtloop/assets/images/travel-map.png')}
+        />
+        <SearchBar
+          containerStyle={styles.searchBar}
+          placeholder="Departing from?"
+          searchIcon={{
+            name: 'map-marker-alt',
+            type: 'font-awesome-5',
+            size: 22,
+            containerStyle: styles.mapIcon,
+          }}
+        />
+        {<InfoItem onPress={() => console.log('hey')} />}
+        {
+          <View style={styles.offersContainer}>
+            <Text style={styles.offersTitle}>My Offers</Text>
+            <Carousel
+              vertical={false}
+              width={ScreenWidth}
+              style={styles.offersCarousel}
+              loop
+              pagingEnabled
+              snapEnabled
+              autoPlay
+              autoPlayInterval={5000}
+              mode="parallax"
+              modeConfig={{
+                parallaxScrollingScale: 0.9,
+                parallaxScrollingOffset: 50,
+              }}
+              panGestureHandlerProps={{
+                activeOffsetX: [-10, 10],
+              }}
+              data={items}
+              renderItem={({ item }) => (
+                <OfferItem
+                  offer={item}
+                  tagButtonTitle="UPGRADE HERE"
+                  onPress={showUpgradedPopup}
+                />
+              )}
+            />
+          </View>
+        }
+      </ScrollView>
     </View>
   );
 }

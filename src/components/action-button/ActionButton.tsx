@@ -54,7 +54,7 @@ const ActionButton = ({
       default:
         return style;
     }
-  }, [size, outlined, styles]);
+  }, [size, outlined, reversed, styles]);
 
   const defaultDisabledButtonStyle = useMemo(() => {
     const style = { ...styles.button };
@@ -85,7 +85,7 @@ const ActionButton = ({
       default:
         return { ...style, ...styles.mediumTitle };
     }
-  }, [size, outlined, styles]);
+  }, [size, outlined, reversed, styles]);
 
   const defaultDisabledTitleStyle = useMemo(() => {
     const style = { ...defaultTitleStyle };
