@@ -47,7 +47,7 @@ export default function App() {
         return;
       }
       token = (await Notifications.getExpoPushTokenAsync()).data;
-      console.log(token);
+      console.log('push notification token:', token);
     } else {
       console.log('Must use physical device for Push Notifications');
     }
@@ -57,7 +57,6 @@ export default function App() {
 
   useEffect(() => {
     registerForPushNotificationsAsync().then((token) => {
-      console.log(token);
       setExpoPushToken(token);
     });
 
@@ -68,7 +67,7 @@ export default function App() {
 
     responseListener.current =
       Notifications.addNotificationResponseReceivedListener((response) => {
-        console.log(response);
+        console.log('responseListner response:',response);
       });
 
     return () => {

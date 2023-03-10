@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Image, ScrollView, Text, View } from 'react-native';
 import {
   FocusAwareStatusBar,
@@ -6,19 +6,22 @@ import {
   UpgradedTicket,
 } from '@wtloop/components';
 import { useTheme } from '@rneui/themed';
+import { useQueryClient } from 'react-query';
+import { useFetchAEMAdContent } from '@wtloop/hooks/useFetchAEMAdContent';
+import { ActionButton, AEMModal } from '@wtloop/components';
 import useStyles from './HomeScreen.styles';
 import { OfferItem } from '@wtloop/components';
 import Carousel from 'react-native-reanimated-carousel';
 import { ScreenWidth } from '@rneui/base';
 import InfoItem from './components/info-item/InfoItem';
 import { PopupView } from '@wtloop/components/popup-view';
-import { useFetchAEM } from '../../hooks/useFetchAEM';
 
 export default function HomeScreen() {
   const styles = useStyles();
   const { theme } = useTheme();
-
-  const { isLoading, error, data: content } = useFetchAEM();
+  const queryClient = useQueryClient();
+  const { isLoading, error, data: content } = useFetchAEMAdContent();
+  const [ visible, setVisible ] = useState(false);
 
   useEffect(() => {
     console.log('isLoading:', isLoading);

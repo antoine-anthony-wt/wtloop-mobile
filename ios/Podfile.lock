@@ -1,4 +1,28 @@
 PODS:
+  - AEPAnalytics (3.2.0):
+    - AEPCore (>= 3.7.0)
+    - AEPServices (>= 3.7.0)
+  - AEPCore (3.7.4):
+    - AEPRulesEngine (>= 1.1.0)
+    - AEPServices (>= 3.7.4)
+  - AEPEdge (1.5.0):
+    - AEPCore (>= 3.5.0)
+    - AEPEdgeIdentity
+  - AEPEdgeConsent (1.0.1):
+    - AEPCore (>= 3.5.0)
+    - AEPEdge (>= 1.4.0)
+  - AEPEdgeIdentity (1.1.0):
+    - AEPCore (>= 3.6.0)
+  - AEPIdentity (3.7.4):
+    - AEPCore (>= 3.7.4)
+  - AEPLifecycle (3.7.4):
+    - AEPCore (>= 3.7.4)
+  - AEPRulesEngine (1.2.0)
+  - AEPServices (3.7.4)
+  - AEPSignal (3.7.4):
+    - AEPCore (>= 3.7.4)
+  - AEPUserProfile (3.0.1):
+    - AEPCore
   - boost (1.76.0)
   - BVLinearGradient (2.6.2):
     - React-Core
@@ -57,6 +81,21 @@ PODS:
     - DoubleConversion
     - fmt (~> 6.2.1)
     - glog
+  - RCTAEPCore (1.0.1):
+    - AEPCore (~> 3.0)
+    - AEPIdentity (~> 3.0)
+    - AEPLifecycle (~> 3.0)
+    - AEPSignal (~> 3.0)
+    - React
+  - RCTAEPEdge (1.0.0):
+    - AEPEdge (~> 1.0)
+    - React
+  - RCTAEPEdgeConsent (1.0.0):
+    - AEPEdgeConsent (~> 1.0)
+    - React
+  - RCTAEPEdgeIdentity (1.1.0):
+    - AEPEdgeIdentity (~> 1.0)
+    - React
   - RCTRequired (0.70.5)
   - RCTTypeSafety (0.70.5):
     - FBLazyVector (= 0.70.5)
@@ -374,6 +413,14 @@ PODS:
   - Yoga (1.14.0)
 
 DEPENDENCIES:
+  - AEPAnalytics (~> 3.0)
+  - AEPCore (~> 3.0)
+  - AEPEdgeConsent (~> 1.0)
+  - AEPEdgeIdentity (~> 1.0)
+  - AEPIdentity (~> 3.0)
+  - AEPLifecycle (~> 3.0)
+  - AEPSignal (~> 3.0)
+  - AEPUserProfile (~> 3.0)
   - boost (from `../node_modules/react-native/third-party-podspecs/boost.podspec`)
   - BVLinearGradient (from `../node_modules/react-native-linear-gradient`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
@@ -392,6 +439,10 @@ DEPENDENCIES:
   - FBReactNativeSpec (from `../node_modules/react-native/React/FBReactNativeSpec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
+  - "RCTAEPCore (from `../node_modules/@adobe/react-native-aepcore`)"
+  - "RCTAEPEdge (from `../node_modules/@adobe/react-native-aepedge`)"
+  - "RCTAEPEdgeConsent (from `../node_modules/@adobe/react-native-aepedgeconsent`)"
+  - "RCTAEPEdgeIdentity (from `../node_modules/@adobe/react-native-aepedgeidentity`)"
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
   - RCTTypeSafety (from `../node_modules/react-native/Libraries/TypeSafety`)
   - React (from `../node_modules/react-native/`)
@@ -428,6 +479,17 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - AEPAnalytics
+    - AEPCore
+    - AEPEdge
+    - AEPEdgeConsent
+    - AEPEdgeIdentity
+    - AEPIdentity
+    - AEPLifecycle
+    - AEPRulesEngine
+    - AEPServices
+    - AEPSignal
+    - AEPUserProfile
     - fmt
     - libwebp
     - SDWebImage
@@ -470,6 +532,14 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
   RCT-Folly:
     :podspec: "../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec"
+  RCTAEPCore:
+    :path: "../node_modules/@adobe/react-native-aepcore"
+  RCTAEPEdge:
+    :path: "../node_modules/@adobe/react-native-aepedge"
+  RCTAEPEdgeConsent:
+    :path: "../node_modules/@adobe/react-native-aepedgeconsent"
+  RCTAEPEdgeIdentity:
+    :path: "../node_modules/@adobe/react-native-aepedgeidentity"
   RCTRequired:
     :path: "../node_modules/react-native/Libraries/RCTRequired"
   RCTTypeSafety:
@@ -536,6 +606,17 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
+  AEPAnalytics: b83efee29b4323537cbce4b8f146d26cee6cdc80
+  AEPCore: 4f2d6af62f492e87a6cc9cbf4c89ae6f0ea89d81
+  AEPEdge: 924cd8ace3db40b9c42bc2bc5e8fb1fcad3a9b77
+  AEPEdgeConsent: a23b35ab331d2aa2013fcef49c9d6b80085d5597
+  AEPEdgeIdentity: 47f0c6ecbec5857b2a8cb9b7bf717c2424c6bae0
+  AEPIdentity: 4e298be480b327dd1fbb89e74210001bbbbb1c81
+  AEPLifecycle: 64107400233d9add603a87d2a4b36002bccb0129
+  AEPRulesEngine: 71228dfdac24c9ded09be13e3257a7eb22468ccc
+  AEPServices: 1c66ce125f9b3bbd46e42687b6929cd584bffdf4
+  AEPSignal: d6473de3410183f1f0754b92b2938a571332362e
+  AEPUserProfile: 2ddb5ba8e2c22dd8f942992306b050f4be2c2403
   boost: a7c83b31436843459a1961bfd74b96033dc77234
   BVLinearGradient: 34a999fda29036898a09c6a6b728b0b4189e1a44
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
@@ -556,6 +637,10 @@ SPEC CHECKSUMS:
   glog: 04b94705f318337d7ead9e6d17c019bd9b1f6b1b
   libwebp: f62cb61d0a484ba548448a4bd52aabf150ff6eef
   RCT-Folly: 0080d0a6ebf2577475bda044aa59e2ca1f909cda
+  RCTAEPCore: 513c7e995cafcaf536653f0dfaaba2b92862b93a
+  RCTAEPEdge: 9938932e89a90adf5cd30250b46cc67fbe35dd06
+  RCTAEPEdgeConsent: b998b2d08f254635ef01263fea186d7262f2d242
+  RCTAEPEdgeIdentity: 1b18a3ff1947f8f4896d5f40083d31a6971e4bbc
   RCTRequired: 21229f84411088e5d8538f21212de49e46cc83e2
   RCTTypeSafety: 62eed57a32924b09edaaf170a548d1fc96223086
   React: f0254ccddeeef1defe66c6b1bb9133a4f040792b
@@ -591,6 +676,6 @@ SPEC CHECKSUMS:
   SDWebImageWebPCoder: 908b83b6adda48effe7667cd2b7f78c897e5111d
   Yoga: eca980a5771bf114c41a754098cd85e6e0d90ed7
 
-PODFILE CHECKSUM: 3001f26f36562bd6e929fc5645855ada3290c528
+PODFILE CHECKSUM: 2e31897c7e8bd6b75f03f8ec8163a93239b17453
 
 COCOAPODS: 1.11.3
