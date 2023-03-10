@@ -19,6 +19,7 @@ import LoadingView from '@wtloop/components/loading-view/LoadingView';
 import { useNavigation } from '@react-navigation/native';
 import { TicketScreenName } from '../ticket/TicketScreen';
 import PlaceholderView from '@wtloop/components/placeholder-view/PlaceholderView';
+import { Edge, ExperienceEvent } from '@adobe/react-native-aepedge';
 
 export default function HomeScreen() {
   const styles = useStyles();
@@ -52,6 +53,16 @@ export default function HomeScreen() {
 
   useEffect(() => {
     if (presentMyOffers) {
+      const xdmData = { eventType: 'SampleXDMEvent' };
+      const data = { free: 'form', data: 'example' };
+      const experienceEvent = new ExperienceEvent(xdmData, data);
+      console.log('exerienceEvent: ', experienceEvent);
+      Edge.sendEvent(experienceEvent).then((eventHandles) =>
+        console.log(
+          'Edge.sentEvent returned EdgeEventHandles = ' +
+            JSON.stringify(eventHandles),
+        ),
+      );
       refetchOffers();
     }
   }, [presentMyOffers]);
