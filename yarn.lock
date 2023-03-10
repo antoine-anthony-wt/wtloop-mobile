@@ -2,6 +2,26 @@
 # yarn lockfile v1
 
 
+"@adobe/react-native-aepcore@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@adobe/react-native-aepcore/-/react-native-aepcore-1.0.1.tgz#dbabdcb2e2db453fea12f1b2f9eaf83dcc5cbabb"
+  integrity sha512-WRK8QyBsmGNmWXg98rEP3VWO+mf98Al/WkcZTuhvrQXW1Y1rhfA7zqNNQT47/P6Ag5s6pIiKHsEeOOpXbeECnA==
+
+"@adobe/react-native-aepedge@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@adobe/react-native-aepedge/-/react-native-aepedge-1.0.0.tgz#4845ca86eb5bb65ee624cfba53c4e0aff01e93d0"
+  integrity sha512-b2oJUnekY8p8VPW33is3QDZoDrXzg8d5SC0+W8xtFJzAj+ovxcqzGmtm7MPUJWK87Esp005PCpWwEJ3YxyDnuQ==
+
+"@adobe/react-native-aepedgeconsent@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@adobe/react-native-aepedgeconsent/-/react-native-aepedgeconsent-1.0.0.tgz#4bb9d45593e6b2b2625ecd45953708a65a8787f1"
+  integrity sha512-VC6MZw8mrmtydIiuhWQ+YVkhgCQC81FztDC2XuyijQwdHavgkmF9HYNOawp9EMiYgixprB6CRVWpfFeeVLPlJQ==
+
+"@adobe/react-native-aepedgeidentity@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@adobe/react-native-aepedgeidentity/-/react-native-aepedgeidentity-1.1.0.tgz#1faf84f496006f55d7e3c057049582f3d247055c"
+  integrity sha512-cf5pB2QVgQdn7KdW4a4qoXgJtaFnaIelH3LMUKFvk+fIaZsBADXqsPFxrAiqRxIByX9q38pDKksZI2uanLULWw==
+
 "@ampproject/remapping@^2.2.0":
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/@ampproject/remapping/-/remapping-2.2.0.tgz#56c133824780de3174aed5ab6834f3026790154d"
@@ -8347,6 +8367,18 @@ url-parse@^1.5.9:
   dependencies:
     querystringify "^2.1.1"
     requires-port "^1.0.0"
+
+use-count-up@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/use-count-up/-/use-count-up-3.0.1.tgz#315edf4e4be91ead94e6dd34444349d9b8c2c6c3"
+  integrity sha512-jlVsXJYje6jh+xwQaCEYrwHoB+nRyillNEmr21bhe9kw7tpRzyrSq9jQs9UOlo+8hCFkuOmjUihL3IjEK/piVg==
+  dependencies:
+    use-elapsed-time "3.0.2"
+
+use-elapsed-time@3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/use-elapsed-time/-/use-elapsed-time-3.0.2.tgz#ef22bf520e60f9873fd102925a2d5cbc5d4faaf5"
+  integrity sha512-2EY9lJ5DWbAvT8wWiEp6Ztnl46DjXz2j78uhWbXaz/bg3OfpbgVucCAlcN8Bih6hTJfFTdVYX9L6ySMn5py/wQ==
 
 use-latest-callback@^0.1.5:
   version "0.1.5"

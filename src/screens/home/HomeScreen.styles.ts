@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
   },
   map: {
     height: undefined,
+    width: '100%',
     aspectRatio: 3 / 2,
   },
   mapIcon: {

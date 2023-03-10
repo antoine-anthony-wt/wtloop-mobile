@@ -1,4 +1,2 @@
-import { GET_AEM_CONTENT } from './GET_AEM_CONTENT';
-
-
-export { GET_AEM_CONTENT };
+export { GET_AEM_AD_CONTENT } from './GET_AEM_AD_CONTENT';
+export { GET_AEM_AD_CONFIRMATION } from './GET_AEM_AD_CONFIRMATION';

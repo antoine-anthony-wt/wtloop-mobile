@@ -6,13 +6,13 @@ import {
   UpgradedTicket,
 } from '@wtloop/components';
 import { useTheme } from '@rneui/themed';
+import { useFetchAEMAdContent } from '@wtloop/hooks/useFetchAEMAdContent';
 import useStyles from './HomeScreen.styles';
 import { OfferItem } from '@wtloop/components';
 import Carousel from 'react-native-reanimated-carousel';
 import { ScreenWidth } from '@rneui/base';
 import InfoItem from './components/info-item/InfoItem';
 import { PopupView } from '@wtloop/components/popup-view';
-import { useFetchAEM } from '../../hooks/useFetchAEM';
 import { useTripInfo } from '@wtloop/hooks/useTripInfo';
 import { Offer } from '@wtloop/types';
 import LoadingView from '@wtloop/components/loading-view/LoadingView';
@@ -21,7 +21,7 @@ export default function HomeScreen() {
   const styles = useStyles();
   const { theme } = useTheme();
 
-  const { isLoading, error, data: content } = useFetchAEM();
+  const { isLoading, error, data: content } = useFetchAEMAdContent();
   const { useUpgradingState, useInLoungeState } = useTripInfo();
   const { upgradedWithOffer, upgradeWithOffer, isUpgrading } =
     useUpgradingState();
