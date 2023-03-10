@@ -22,11 +22,10 @@ export default function HomeScreen() {
   const { theme } = useTheme();
 
   const { isLoading, error, data: content } = useFetchAEM();
-  const { useBoardingState, useUpgradingState, useInLoungeState } =
-    useTripInfo();
+  const { useUpgradingState, useInLoungeState } = useTripInfo();
   const { upgradedWithOffer, upgradeWithOffer, isUpgrading } =
     useUpgradingState();
-  const { inLounge, setInLounge } = useInLoungeState();
+  const { inLounge } = useInLoungeState();
 
   useEffect(() => {
     console.log('isLoading:', isLoading);

@@ -20,10 +20,9 @@ export interface TripInfoContextInterface {
   };
   useInLoungeState: () => {
     inLounge: boolean;
-    setInLounge: Dispatch<SetStateAction<boolean>>;
+    listenForInLounge: () => void;
+    stopListeningForInLounge: () => void;
   };
-  listenForInLounge: () => void;
-  stopListeningForInLounge: () => void;
   resetTrip: () => void;
 }
 
@@ -76,14 +75,16 @@ export const TripInfo = () => {
     upgradeWithOffer,
     isUpgrading,
   });
-  const useInLoungeState = () => ({ inLounge, setInLounge });
+  const useInLoungeState = () => ({
+    inLounge,
+    listenForInLounge,
+    stopListeningForInLounge,
+  });
 
   return {
     useBoardingState,
     useUpgradingState,
     useInLoungeState,
-    listenForInLounge,
-    stopListeningForInLounge,
     resetTrip,
   };
 };

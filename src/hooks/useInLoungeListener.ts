@@ -8,11 +8,11 @@ export const useInLoungeListener = () => {
 
   const fetchInLoungeInfo = async () => {
     const response = await axios.get(IN_LOUNGE_URL);
-    console.log(response.data);
-    setInLounge(response.data.firstClass);
+    setInLounge(response.data.firstClass === 'true');
   };
 
   const startListening = () => {
+    fetchInLoungeInfo();
     timerInterval = setInterval(() => {
       fetchInLoungeInfo();
     }, 3000);
