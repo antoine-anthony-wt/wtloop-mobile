@@ -2,19 +2,20 @@ import { useEffect, useState } from 'react';
 import { IN_LOUNGE_URL } from '@env';
 import axios from 'axios';
 
-export const useInLoungeListener = () => {
-  const [inLounge, setInLounge] = useState<boolean>();
+export const useBoarderAreaScanListener = () => {
+  const [inBoardingArea, setInBoardingArea] = useState<boolean>();
   let timerInterval: NodeJS.Timer;
 
-  const fetchInLoungeInfo = async () => {
+  const fetchInBoardingAreaInfo = async () => {
+    console.log('LISTENING');
     const response = await axios.get(IN_LOUNGE_URL);
-    setInLounge(response.data.firstClass === 'true');
+    setInBoardingArea(response.data.firstClass === 'true');
   };
 
   const startListening = () => {
-    fetchInLoungeInfo();
+    fetchInBoardingAreaInfo();
     timerInterval = setInterval(() => {
-      fetchInLoungeInfo();
+      fetchInBoardingAreaInfo();
     }, 1000);
   };
 
@@ -26,5 +27,5 @@ export const useInLoungeListener = () => {
     return () => stopListening();
   }, []);
 
-  return { inLounge, startListening, stopListening };
+  return { inBoardingArea, startListening, stopListening };
 };

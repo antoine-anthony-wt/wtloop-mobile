@@ -16,33 +16,31 @@ export default function TicketScreen() {
   const { theme } = useTheme();
   const navigation = useNavigation();
 
-  const { useBoardingState, useInLoungeState, useUpgradingState, resetTrip } =
-    useTripInfo();
-  const { inLounge, listenForInLounge, stopListeningForInLounge } =
-    useInLoungeState();
-  const { isBoarded, setIsBoarded } = useBoardingState();
+  const { useBoardingState, useUpgradingState, resetTrip } = useTripInfo();
+  const {
+    inBoardingArea,
+    isBoarded,
+    listenForBoardingAreaScan,
+    stopListeningForBoardingAreaScan,
+  } = useBoardingState();
   const { upgradedWithOffer } = useUpgradingState();
 
   useEffect(() => {
-    if (isBoarded && !!upgradedWithOffer) {
-      stopListeningForInLounge();
-      listenForInLounge();
+    if (!inBoardingArea && !isBoarded && !!upgradedWithOffer) {
+      stopListeningForBoardingAreaScan();
+      listenForBoardingAreaScan();
     }
-    return () => stopListeningForInLounge();
-  }, [isBoarded, upgradedWithOffer]);
+    return () => stopListeningForBoardingAreaScan();
+  }, [inBoardingArea, isBoarded]);
 
   useDidUpdateEffect(() => {
-    if (!inLounge) return;
-    stopListeningForInLounge();
+    if (!inBoardingArea) return;
+    stopListeningForBoardingAreaScan();
     navigation.goBack();
-  }, [inLounge]);
+  }, [inBoardingArea]);
 
   const handleBoardingState = () => {
-    if (!isBoarded) {
-      setIsBoarded(true);
-    } else {
-      resetTrip();
-    }
+    resetTrip();
   };
 
   const countdownTimer = (
