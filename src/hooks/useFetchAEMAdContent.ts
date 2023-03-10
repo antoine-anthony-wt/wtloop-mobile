@@ -14,10 +14,19 @@ import { offersResponse } from '@wtloop/__mocks__/server-responses/offersRespons
 export function useFetchAEMAdContentQuery() {
   return useQuery(
     'aem',
-    /* async*/ () => {
-      // const response = await axios.get(AEM_ENDPOINT);
-      const data = /* response.data*/ offersResponse().data.advertismentList
-        .items as Record<string, any>[];
+    async () => {
+      const selectedResponse = async ({ mocked }: { mocked: boolean }) => {
+        if (mocked) {
+          return { data: offersResponse() };
+        }
+        return await axios.get(AEM_ENDPOINT);
+      };
+
+      const response = await selectedResponse({ mocked: true });
+      const data = response.data.data.advertismentList.items as Record<
+        string,
+        any
+      >[];
       const offers = data
         .map((item) => offerFromJson(item))
         .filter((item) => item !== undefined);
