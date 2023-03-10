@@ -19,11 +19,12 @@ import LoadingView from '@wtloop/components/loading-view/LoadingView';
 import { useNavigation } from '@react-navigation/native';
 import { TicketScreenName } from '../ticket/TicketScreen';
 import PlaceholderView from '@wtloop/components/placeholder-view/PlaceholderView';
+import { HomeScreenNavigationProp } from '@wtloop/navigators/home/HomeNavigator';
 
 export default function HomeScreen() {
   const styles = useStyles();
   const { theme } = useTheme();
-  const navigation = useNavigation();
+  const navigation = useNavigation<HomeScreenNavigationProp>();
 
   const {
     error: errorLoadingOffers,
@@ -56,37 +57,13 @@ export default function HomeScreen() {
     }
   }, [presentMyOffers]);
 
-  /*
-  const items = useMemo(
-    () =>
-      inLounge
-        ? [
-            {
-              id: 'abc123',
-              title: 'Tap to get a free glass of whisky.',
-              imageUrl:
-                'https://hips.hearstapps.com/hmg-prod/images/whiskey-being-poured-into-a-glass-royalty-free-image-1663870436.jpg',
-            },
-          ]
-        : [
-            {
-              id: 'xyx987',
-              title: 'Go to First Class and get your free whisky!',
-              imageUrl:
-                'https://hips.hearstapps.com/hmg-prod/images/whiskey-being-poured-into-a-glass-royalty-free-image-1663870436.jpg',
-            },
-          ],
-    [inLounge],
-  );
-  */
-
   const upgradeToFirstClass = (offer: Offer) => {
     upgradeWithOffer(offer);
   };
 
-  const showUpgradedPopup = () => {
+  const showUpgradedPopup = (offer: Offer) => {
     PopupView.open({
-      content: <UpgradedTicket />,
+      content: <UpgradedTicket offer={offer} />,
     });
   };
 
@@ -96,7 +73,7 @@ export default function HomeScreen() {
 
   useEffect(() => {
     if (!upgradedWithOffer) return;
-    showUpgradedPopup();
+    showUpgradedPopup(upgradedWithOffer);
   }, [upgradedWithOffer]);
 
   return (
@@ -127,7 +104,7 @@ export default function HomeScreen() {
         {presentWelcomeToLounge && (
           <Text style={styles.welcomeLounge}>{'Welcome to\nFirst Class'}</Text>
         )}
-        {presentMyOffers && !errorLoadingOffers && (
+        {presentMyOffers && !errorLoadingOffers && offers?.length && (
           <View style={styles.offersContainer}>
             <Text style={styles.offersTitle}>My Offers</Text>
             <Carousel
@@ -168,7 +145,7 @@ export default function HomeScreen() {
             />
           </View>
         )}
-        {presentMyOffers && !!errorLoadingOffers && (
+        {presentMyOffers && (!!errorLoadingOffers || !offers?.length) && (
           <PlaceholderView
             title="Hmm..."
             message={

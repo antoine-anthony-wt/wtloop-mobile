@@ -3,6 +3,7 @@ import { useQuery } from 'react-query';
 
 import { AEM_ENDPOINT } from '@env';
 import { offerFromJson } from '@wtloop/utils/offerFromJson';
+import { offersResponse } from '@wtloop/__mocks__/server-responses/offersResponse';
 
 /**
  * Custom hook that returns a React Query useQuery hook for fetching AEM content.
@@ -13,12 +14,10 @@ import { offerFromJson } from '@wtloop/utils/offerFromJson';
 export function useFetchAEMAdContentQuery() {
   return useQuery(
     'aem',
-    async () => {
-      const response = await axios.get(AEM_ENDPOINT);
-      const data = response.data.data.advertismentList.items as Record<
-        string,
-        any
-      >[];
+    /* async*/ () => {
+      // const response = await axios.get(AEM_ENDPOINT);
+      const data = /* response.data*/ offersResponse().data.advertismentList
+        .items as Record<string, any>[];
       const offers = data
         .map((item) => offerFromJson(item))
         .filter((item) => item !== undefined);

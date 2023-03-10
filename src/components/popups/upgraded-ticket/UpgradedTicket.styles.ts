@@ -27,6 +27,7 @@ const useStyles = makeStyles(({ colors, spacing, radius, typography }) => {
     upgradeImage: {
       height: 271,
       width: '100%',
+      backgroundColor: colors.grey4,
     },
     upgradeTitle: {
       ...typography({
@@ -38,6 +39,7 @@ const useStyles = makeStyles(({ colors, spacing, radius, typography }) => {
       textAlign: 'center',
       marginBottom: 10,
       marginTop: 20,
+      width: 200,
     },
     upgradeMessageContainer: {
       height: 155,
