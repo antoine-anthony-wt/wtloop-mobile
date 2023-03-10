@@ -6,6 +6,7 @@ import {
 import { HomeScreen, HomeScreenName } from '@wtloop/screens';
 import { useCommonNavBarOptions } from '@wtloop/navigators/utils/useCommonNavBarOptions';
 import { HyperloopLogo } from '@wtloop/assets/images';
+import { RootStackParamList } from '../root/RootNavigator';
 
 const Stack = createNativeStackNavigator();
 
@@ -27,6 +28,6 @@ export function HomeNavigator() {
 export const HomeNavigatorName = 'HomeNavigator';
 
 export type HomeScreenNavigationProp = NativeStackNavigationProp<
-  HomeNavigatorParamList,
+  HomeNavigatorParamList & RootStackParamList,
   typeof HomeScreenName
 >;
