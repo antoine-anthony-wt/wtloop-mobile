@@ -46,6 +46,9 @@ const useStyles = makeStyles(({ colors, typography }) => ({
     alignSelf: 'center',
     textAlign: 'center',
   },
+  placeholder: {
+    marginTop: spacing.xxl * 2,
+  },
 }));
 
 export default useStyles;

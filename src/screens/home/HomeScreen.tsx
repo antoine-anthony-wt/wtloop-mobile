@@ -18,13 +18,18 @@ import { Offer } from '@wtloop/types';
 import LoadingView from '@wtloop/components/loading-view/LoadingView';
 import { useNavigation } from '@react-navigation/native';
 import { TicketScreenName } from '../ticket/TicketScreen';
+import PlaceholderView from '@wtloop/components/placeholder-view/PlaceholderView';
 
 export default function HomeScreen() {
   const styles = useStyles();
   const { theme } = useTheme();
   const navigation = useNavigation();
 
-  const { isLoading, error, data: content } = useFetchAEMAdContent();
+  const {
+    error: errorLoadingOffers,
+    data: offers,
+    refetch: refetchOffers,
+  } = useFetchAEMAdContent();
   const { useBoardingState, useUpgradingState, useInLoungeState } =
     useTripInfo();
   const { isBoarded } = useBoardingState();
@@ -46,11 +51,12 @@ export default function HomeScreen() {
   );
 
   useEffect(() => {
-    console.log('isLoading:', isLoading);
-    console.log('error:', error);
-    console.log('content:', content);
-  }, [isLoading, error, content]);
+    if (presentMyOffers) {
+      refetchOffers();
+    }
+  }, [presentMyOffers]);
 
+  /*
   const items = useMemo(
     () =>
       inLounge
@@ -72,6 +78,7 @@ export default function HomeScreen() {
           ],
     [inLounge],
   );
+  */
 
   const upgradeToFirstClass = (offer: Offer) => {
     upgradeWithOffer(offer);
@@ -120,7 +127,7 @@ export default function HomeScreen() {
         {presentWelcomeToLounge && (
           <Text style={styles.welcomeLounge}>{'Welcome to\nFirst Class'}</Text>
         )}
-        {presentMyOffers && (
+        {presentMyOffers && !errorLoadingOffers && (
           <View style={styles.offersContainer}>
             <Text style={styles.offersTitle}>My Offers</Text>
             <Carousel
@@ -140,7 +147,7 @@ export default function HomeScreen() {
               panGestureHandlerProps={{
                 activeOffsetX: [-10, 10],
               }}
-              data={items}
+              data={presentMyOffers ? offers : []}
               renderItem={({ item }) => (
                 <OfferItem
                   offer={item}
@@ -160,6 +167,19 @@ export default function HomeScreen() {
               )}
             />
           </View>
+        )}
+        {presentMyOffers && !!errorLoadingOffers && (
+          <PlaceholderView
+            title="Hmm..."
+            message={
+              'Something went wrong trying to get your offers.\nPlease try again'
+            }
+            containerStyle={styles.placeholder}
+            defaultButtonTitle="Try Again"
+            onDefaultButtonPress={() => {
+              refetchOffers();
+            }}
+          />
         )}
         {presentLoungeInvitation && <InfoItem onPress={goToTicketScreen} />}
       </ScrollView>
