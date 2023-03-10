@@ -16,16 +16,34 @@ import { PopupView } from '@wtloop/components/popup-view';
 import { useTripInfo } from '@wtloop/hooks/useTripInfo';
 import { Offer } from '@wtloop/types';
 import LoadingView from '@wtloop/components/loading-view/LoadingView';
+import { useNavigation } from '@react-navigation/native';
+import { TicketScreenName } from '../ticket/TicketScreen';
 
 export default function HomeScreen() {
   const styles = useStyles();
   const { theme } = useTheme();
+  const navigation = useNavigation();
 
   const { isLoading, error, data: content } = useFetchAEMAdContent();
-  const { useUpgradingState, useInLoungeState } = useTripInfo();
+  const { useBoardingState, useUpgradingState, useInLoungeState } =
+    useTripInfo();
+  const { isBoarded } = useBoardingState();
   const { upgradedWithOffer, upgradeWithOffer, isUpgrading } =
     useUpgradingState();
   const { inLounge } = useInLoungeState();
+
+  const presentLoungeInvitation = useMemo(
+    () => isBoarded && upgradedWithOffer && !inLounge,
+    [isBoarded, upgradedWithOffer, inLounge],
+  );
+  const presentWelcomeToLounge = useMemo(
+    () => isBoarded && upgradedWithOffer && inLounge,
+    [isBoarded, upgradedWithOffer, inLounge],
+  );
+  const presentMyOffers = useMemo(
+    () => !presentLoungeInvitation,
+    [presentLoungeInvitation],
+  );
 
   useEffect(() => {
     console.log('isLoading:', isLoading);
@@ -34,15 +52,25 @@ export default function HomeScreen() {
   }, [isLoading, error, content]);
 
   const items = useMemo(
-    () => [
-      {
-        id: 'xyx987',
-        title: 'Go to First Class and get your free whisky!',
-        imageUrl:
-          'https://hips.hearstapps.com/hmg-prod/images/whiskey-being-poured-into-a-glass-royalty-free-image-1663870436.jpg',
-      },
-    ],
-    [],
+    () =>
+      inLounge
+        ? [
+            {
+              id: 'abc123',
+              title: 'Tap to get a free glass of whisky.',
+              imageUrl:
+                'https://hips.hearstapps.com/hmg-prod/images/whiskey-being-poured-into-a-glass-royalty-free-image-1663870436.jpg',
+            },
+          ]
+        : [
+            {
+              id: 'xyx987',
+              title: 'Go to First Class and get your free whisky!',
+              imageUrl:
+                'https://hips.hearstapps.com/hmg-prod/images/whiskey-being-poured-into-a-glass-royalty-free-image-1663870436.jpg',
+            },
+          ],
+    [inLounge],
   );
 
   const upgradeToFirstClass = (offer: Offer) => {
@@ -52,9 +80,11 @@ export default function HomeScreen() {
   const showUpgradedPopup = () => {
     PopupView.open({
       content: <UpgradedTicket />,
-      onOpen: () => console.log('ON OPEN'),
-      onClose: () => console.log('ON CLOSE'),
     });
+  };
+
+  const goToTicketScreen = () => {
+    navigation.navigate(TicketScreenName);
   };
 
   useEffect(() => {
@@ -87,8 +117,10 @@ export default function HomeScreen() {
             containerStyle: styles.mapIcon,
           }}
         />
-        {!!upgradedWithOffer && <InfoItem onPress={() => console.log('hey')} />}
-        {(!upgradedWithOffer || inLounge) && (
+        {presentWelcomeToLounge && (
+          <Text style={styles.welcomeLounge}>{'Welcome to\nFirst Class'}</Text>
+        )}
+        {presentMyOffers && (
           <View style={styles.offersContainer}>
             <Text style={styles.offersTitle}>My Offers</Text>
             <Carousel
@@ -112,13 +144,24 @@ export default function HomeScreen() {
               renderItem={({ item }) => (
                 <OfferItem
                   offer={item}
-                  tagButtonTitle={!upgradedWithOffer && 'UPGRADE HERE'}
-                  onPressButton={() => upgradeToFirstClass(item)}
+                  tagButtonTitle={
+                    !upgradedWithOffer
+                      ? 'UPGRADE HERE'
+                      : !inLounge
+                      ? 'UPGRADED'
+                      : undefined
+                  }
+                  onPressButton={
+                    !upgradedWithOffer
+                      ? () => upgradeToFirstClass(item)
+                      : undefined
+                  }
                 />
               )}
             />
           </View>
         )}
+        {presentLoungeInvitation && <InfoItem onPress={goToTicketScreen} />}
       </ScrollView>
       <LoadingView
         visible={isUpgrading}

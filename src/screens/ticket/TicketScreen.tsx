@@ -1,31 +1,49 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image, View, Text } from 'react-native';
-import { FocusAwareStatusBar } from '@wtloop/components';
+import { ActionButton, FocusAwareStatusBar } from '@wtloop/components';
 import { useTheme } from '@rneui/themed';
 import useStyles from './TicketScreen.styles';
 import { useTripInfo } from '@wtloop/hooks/useTripInfo';
 import { CountUp } from 'use-count-up';
 import { Divider } from '@rneui/base';
 import { TicketImage } from '@wtloop/assets/images';
+import { useNavigation } from '@react-navigation/native';
+import { useDidUpdateEffect } from '@wtloop/hooks/useDidUpdateEffect';
 
 export default function TicketScreen() {
-  const [extraZero, setExtraZero] = React.useState<number | null>();
+  const [extraZero, setExtraZero] = useState<number | null>();
   const styles = useStyles();
   const { theme } = useTheme();
+  const navigation = useNavigation();
 
-  const { useInLoungeState } = useTripInfo();
+  const { useBoardingState, useInLoungeState, useUpgradingState, resetTrip } =
+    useTripInfo();
   const { inLounge, listenForInLounge, stopListeningForInLounge } =
     useInLoungeState();
+  const { isBoarded, setIsBoarded } = useBoardingState();
+  const { upgradedWithOffer } = useUpgradingState();
 
   useEffect(() => {
-    listenForInLounge();
+    if (isBoarded && !!upgradedWithOffer) {
+      stopListeningForInLounge();
+      listenForInLounge();
+    }
     return () => stopListeningForInLounge();
-  }, []);
+  }, [isBoarded, upgradedWithOffer]);
 
-  useEffect(() => {
+  useDidUpdateEffect(() => {
     if (!inLounge) return;
     stopListeningForInLounge();
+    navigation.goBack();
   }, [inLounge]);
+
+  const handleBoardingState = () => {
+    if (!isBoarded) {
+      setIsBoarded(true);
+    } else {
+      resetTrip();
+    }
+  };
 
   const countdownTimer = (
     <CountUp
@@ -52,14 +70,25 @@ export default function TicketScreen() {
         backgroundColor={theme.colors.black}
       />
       <View style={styles.ticketSubHeaderContainer}>
-        <View style={styles.subHeaderLabelContainer}>
-          <Text style={styles.subHeaderLabelText}>ON RIDE</Text>
-        </View>
+        <ActionButton
+          title={!isBoarded ? 'ON TIME' : 'ON RIDE'}
+          size="sm"
+          containerStyle={styles.state}
+          buttonStyle={styles.stateButton}
+          radius="sm"
+          onPress={handleBoardingState}
+        />
         <View style={styles.subHeaderTimerContainer}>
-          <Text style={styles.subHeaderTimerText}>
-            Est. Arrival Time: 0:{extraZero}
-            {countdownTimer}
-          </Text>
+          {isBoarded ? (
+            <Text style={styles.subHeaderTimerText}>
+              Est. Arrival Time: 0:{extraZero}
+              {countdownTimer}
+            </Text>
+          ) : (
+            <Text style={styles.subHeaderTimerText}>
+              Boarding closes at 10:20 AM
+            </Text>
+          )}
         </View>
       </View>
       <View style={styles.subHeaderDividerContainer}>

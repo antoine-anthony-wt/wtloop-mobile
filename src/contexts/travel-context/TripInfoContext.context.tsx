@@ -1,17 +1,12 @@
-import {
-  createContext,
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useState,
-} from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { Offer } from '@wtloop/types';
 import { useInLoungeListener } from '@wtloop/hooks/useInLoungeListener';
+import { useSetInLoungeState } from '@wtloop/hooks/useSetInLoungeState';
 
 export interface TripInfoContextInterface {
   useBoardingState: () => {
     isBoarded: boolean;
-    setIsBoarded: Dispatch<SetStateAction<boolean>>;
+    setIsBoarded: (isBoarded: boolean) => void;
   };
   useUpgradingState: () => {
     upgradedWithOffer?: Offer;
@@ -30,7 +25,7 @@ export const TripInfoContext =
   createContext<TripInfoContextInterface>(undefined);
 
 export const TripInfo = () => {
-  const [isBoarded, setIsBoarded] = useState(false);
+  const [isBoarded, _setIsBoarded] = useState(false);
   const [inLounge, setInLounge] = useState(false);
   const [upgradedWithOffer, setUpgradedWithOffer] = useState<Offer>();
   const [isUpgrading, setIsUpgrading] = useState(false);
@@ -40,6 +35,8 @@ export const TripInfo = () => {
     startListening,
     stopListening,
   } = useInLoungeListener();
+
+  const { refetch: resetInLoungeState } = useSetInLoungeState(false);
 
   const listenForInLounge = () => {
     startListening();
@@ -51,6 +48,7 @@ export const TripInfo = () => {
 
   const upgradeWithOffer = (offer: Offer) => {
     setIsUpgrading(true);
+    resetInLoungeState();
     setTimeout(() => {
       setUpgradedWithOffer(offer);
       setIsUpgrading(false);
@@ -67,6 +65,14 @@ export const TripInfo = () => {
     setIsBoarded(false);
     setInLounge(false);
     setUpgradedWithOffer(undefined);
+    resetInLoungeState();
+  };
+
+  useEffect(resetTrip, []);
+
+  const setIsBoarded = async (_isBoarded: boolean) => {
+    await resetInLoungeState();
+    _setIsBoarded(_isBoarded);
   };
 
   const useBoardingState = () => ({ isBoarded, setIsBoarded });

@@ -1,7 +1,7 @@
 import { ScreenHeight } from '@rneui/base';
 import { makeStyles } from '@rneui/themed';
 
-const useStyles = makeStyles(({ colors, spacing, radius, typography }) => ({
+const useStyles = makeStyles(({ colors, spacing, typography }) => ({
   container: {
     flex: 1,
     backgroundColor: colors.black,
@@ -10,12 +10,12 @@ const useStyles = makeStyles(({ colors, spacing, radius, typography }) => ({
     marginLeft: spacing.lg,
     marginTop: ScreenHeight * 0.02,
   },
-  subHeaderLabelContainer: {
-    width: 71,
+  state: {
+    alignSelf: 'flex-start',
+  },
+  stateButton: {
     backgroundColor: colors.secondary,
-    paddingHorizontal: spacing.xxs,
-    paddingVertical: spacing.xxs,
-    borderRadius: radius.xxs,
+    minHeight: 28,
   },
   subHeaderLabelText: {
     ...typography({

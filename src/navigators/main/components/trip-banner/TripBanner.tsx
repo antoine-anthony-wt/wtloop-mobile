@@ -9,6 +9,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import useStyles from './TripBanner.styles';
 import { useTheme } from '@rneui/themed';
 import { QRIcon } from '@wtloop/assets/images';
+import { useTripInfo } from '@wtloop/hooks/useTripInfo';
 
 export interface TripBannerProps {
   onPress: () => void;
@@ -18,6 +19,8 @@ export interface TripBannerProps {
 export const TripBanner = ({ onPress, onPressQR }: TripBannerProps) => {
   const styles = useStyles();
   const { theme } = useTheme();
+  const { useBoardingState } = useTripInfo();
+  const { isBoarded } = useBoardingState();
 
   const renderItinerary = () => (
     <View style={styles.itineraryContainer}>
@@ -30,15 +33,21 @@ export const TripBanner = ({ onPress, onPressQR }: TripBannerProps) => {
       </View>
       <View style={styles.travelTimeTitleContainer}>
         <Text style={styles.originDestination}>・</Text>
-        <Text style={styles.travelTimeTitle}>Travel time</Text>
+        <Text style={styles.travelTimeTitle}>
+          {!isBoarded ? 'On Time' : 'Travel time'}
+        </Text>
       </View>
     </View>
   );
 
   const renderArrivalTime = () => (
     <View style={styles.arrivalContainer}>
-      <Text style={styles.arrivalTitle}>Est. Arrival</Text>
-      <Text style={styles.arrivalTime}>11:42 AM</Text>
+      <Text style={styles.arrivalTitle}>
+        {!isBoarded ? 'Boarding' : 'Est. Arrival'}
+      </Text>
+      <Text style={styles.arrivalTime}>
+        {!isBoarded ? '10:30 AM' : '11:42 AM'}
+      </Text>
     </View>
   );
 

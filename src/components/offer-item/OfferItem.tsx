@@ -39,6 +39,7 @@ const OfferItem = ({
           containerStyle={styles.tagButton}
           size="md"
           onPress={onPressButton}
+          userInteractionDisabled={!onPressButton}
         />
       )}
     </View>

@@ -15,7 +15,7 @@ export const useInLoungeListener = () => {
     fetchInLoungeInfo();
     timerInterval = setInterval(() => {
       fetchInLoungeInfo();
-    }, 3000);
+    }, 1000);
   };
 
   const stopListening = () => {

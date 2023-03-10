@@ -12,9 +12,11 @@ import { GET_AEM_AD_CONTENT } from '@wtloop/graphql/queries';
  */
 export function useFetchAEMAdContentQuery<T>() {
   return useQuery<T>('aem', async () => {
-    const response = await axios.post<T>(AEM_ENDPOINT, {
-      mode: 'graphql',
-      graphql: { query: GET_AEM_AD_CONTENT, variable: '' },
+    console.log(AEM_ENDPOINT);
+
+    const response = await axios.get<T>(AEM_ENDPOINT, {
+      // mode: 'graphql',
+      // graphql: { query: GET_AEM_AD_CONTENT, variable: '' },
     });
 
     console.log('response.request', response.request); // log the axios request
