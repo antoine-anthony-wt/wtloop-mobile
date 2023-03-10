@@ -11,6 +11,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { PopupView } from '@wtloop/components/popup-view';
 import { Subscription } from 'expo-modules-core';
+import { TripInfoProvider } from '@wtloop/contexts/travel-context/TripInfoContext.provider';
 
 export default function App() {
   const [expoPushToken, setExpoPushToken] = useState('');
@@ -47,7 +48,7 @@ export default function App() {
         return;
       }
       token = (await Notifications.getExpoPushTokenAsync()).data;
-      console.log(token);
+      console.log('push notification token:', token);
     } else {
       console.log('Must use physical device for Push Notifications');
     }
@@ -57,7 +58,6 @@ export default function App() {
 
   useEffect(() => {
     registerForPushNotificationsAsync().then((token) => {
-      console.log(token);
       setExpoPushToken(token);
     });
 
@@ -68,7 +68,7 @@ export default function App() {
 
     responseListener.current =
       Notifications.addNotificationResponseReceivedListener((response) => {
-        console.log(response);
+        console.log('responseListner response:',response);
       });
 
     return () => {
@@ -90,10 +90,12 @@ export default function App() {
       <GestureHandlerRootView style={styles.container}>
         <ThemeProvider theme={defaultTheme}>
           <QueryClientProvider client={queryClient}>
-            <NavigationContainer>
-              <RootNavigator />
-              <PopupView />
-            </NavigationContainer>
+            <TripInfoProvider>
+              <NavigationContainer>
+                <RootNavigator />
+                <PopupView />
+              </NavigationContainer>
+            </TripInfoProvider>
           </QueryClientProvider>
         </ThemeProvider>
       </GestureHandlerRootView>

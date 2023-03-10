@@ -4,7 +4,7 @@ import { useTheme } from '@rneui/themed';
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native';
 
-const CloseButton = ({ tintColor }: { tintColor: string }) => {
+export const CloseButton = ({ tintColor }: { tintColor: string }) => {
   const { theme } = useTheme();
   const navigation = useNavigation();
 

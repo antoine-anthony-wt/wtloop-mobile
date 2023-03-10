@@ -5,6 +5,9 @@ declare module '@rneui/themed' {
   export interface Colors {
     placeholder?: string;
     shadow?: string;
+    mint?: string;
+    darkMint?: string;
+    darkMintSecondary?: string;
   }
 
   export type Size = {

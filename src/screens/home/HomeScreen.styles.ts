@@ -1,18 +1,20 @@
 import { ScreenWidth } from '@rneui/base';
 import { makeStyles } from '@rneui/themed';
+import { spacing } from '@wtloop/assets/themes';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(({ colors, typography }) => ({
   container: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: theme.colors.background,
+    backgroundColor: colors.background,
   },
   scroll: {
     flex: 1,
-    paddingBottom: theme.spacing.md,
+    paddingBottom: spacing.md,
   },
   map: {
     height: undefined,
+    width: '100%',
     aspectRatio: 3 / 2,
   },
   mapIcon: {
@@ -21,21 +23,28 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
   searchBar: {
-    marginHorizontal: theme.spacing.lg,
-    marginTop: -theme.spacing.xxl,
+    marginHorizontal: spacing.lg,
+    marginTop: -spacing.xxl,
   },
   offersContainer: {
     alignSelf: 'center',
-    marginVertical: theme.spacing.xxl,
+    marginVertical: spacing.xxl,
   },
   offersTitle: {
-    ...theme.typography().caption,
-    marginHorizontal: theme.spacing.lg,
+    ...typography().caption,
+    marginHorizontal: spacing.lg,
   },
   offersCarousel: {
     width: ScreenWidth,
     height: ScreenWidth,
     marginVertical: 0,
+  },
+  welcomeLounge: {
+    ...typography({ color: colors.secondary, fontWeight: '600' }).heading,
+    fontSize: 40,
+    marginTop: spacing.xxl,
+    alignSelf: 'center',
+    textAlign: 'center',
   },
 }));
 
