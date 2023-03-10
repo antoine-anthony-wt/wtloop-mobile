@@ -3,12 +3,12 @@ export interface Offer {
   title: string;
   imageUrl: string;
   confirmationPopup?: {
-    title: string;
-    imageUrl: string;
+    title?: string;
+    imageUrl?: string;
   };
   confirmationTeaser?: {
-    title: string;
-    imageUrl: string;
-    path: string;
+    title?: string;
+    imageUrl?: string;
+    path?: string;
   };
 }
