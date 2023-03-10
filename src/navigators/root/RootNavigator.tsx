@@ -18,8 +18,6 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 export default function RootNavigator() {
   const commonOptions = useCommonNavBarOptions();
   const { theme } = useTheme();
-  const { typography } = theme;
-  const headerTypographyColor = theme.colors.white;
 
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -35,10 +33,10 @@ export default function RootNavigator() {
             backgroundColor: theme.colors.black,
           },
           headerTitleStyle: {
-            ...typography({
-              color: headerTypographyColor,
-              lineHeight: 23.87,
-            }).subheading,
+            color: theme.colors.white,
+            fontFamily: 'AvenirNext-Regular',
+            fontSize: 20,
+            fontWeight: '600',
           },
           headerTintColor: theme.colors.white,
           headerShadowVisible: false,
