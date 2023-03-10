@@ -13,12 +13,20 @@ import { ScreenWidth } from '@rneui/base';
 import InfoItem from './components/info-item/InfoItem';
 import { PopupView } from '@wtloop/components/popup-view';
 import { useFetchAEM } from '../../hooks/useFetchAEM';
+import { useTripInfo } from '@wtloop/hooks/useTripInfo';
+import { Offer } from '@wtloop/types';
+import LoadingView from '@wtloop/components/loading-view/LoadingView';
 
 export default function HomeScreen() {
   const styles = useStyles();
   const { theme } = useTheme();
 
   const { isLoading, error, data: content } = useFetchAEM();
+  const { useBoardingState, useUpgradingState, useInLoungeState } =
+    useTripInfo();
+  const { upgradedWithOffer, upgradeWithOffer, isUpgrading } =
+    useUpgradingState();
+  const { inLounge, setInLounge } = useInLoungeState();
 
   useEffect(() => {
     console.log('isLoading:', isLoading);
@@ -38,6 +46,10 @@ export default function HomeScreen() {
     [],
   );
 
+  const upgradeToFirstClass = (offer: Offer) => {
+    upgradeWithOffer(offer);
+  };
+
   const showUpgradedPopup = () => {
     PopupView.open({
       content: <UpgradedTicket />,
@@ -45,6 +57,11 @@ export default function HomeScreen() {
       onClose: () => console.log('ON CLOSE'),
     });
   };
+
+  useEffect(() => {
+    if (!upgradedWithOffer) return;
+    showUpgradedPopup();
+  }, [upgradedWithOffer]);
 
   return (
     <View style={styles.container}>
@@ -71,8 +88,8 @@ export default function HomeScreen() {
             containerStyle: styles.mapIcon,
           }}
         />
-        {<InfoItem onPress={() => console.log('hey')} />}
-        {
+        {!!upgradedWithOffer && <InfoItem onPress={() => console.log('hey')} />}
+        {(!upgradedWithOffer || inLounge) && (
           <View style={styles.offersContainer}>
             <Text style={styles.offersTitle}>My Offers</Text>
             <Carousel
@@ -96,14 +113,20 @@ export default function HomeScreen() {
               renderItem={({ item }) => (
                 <OfferItem
                   offer={item}
-                  tagButtonTitle="UPGRADE HERE"
-                  onPress={showUpgradedPopup}
+                  tagButtonTitle={!upgradedWithOffer && 'UPGRADE HERE'}
+                  onPressButton={() => upgradeToFirstClass(item)}
                 />
               )}
             />
           </View>
-        }
+        )}
       </ScrollView>
+      <LoadingView
+        visible={isUpgrading}
+        message="Upgrading..."
+        container
+        overlay
+      />
     </View>
   );
 }
