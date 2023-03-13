@@ -1,10 +1,13 @@
 import { createContext, useEffect, useState } from 'react';
 import { Offer } from '@wtloop/types';
-import { useInLoungeListener } from '@wtloop/hooks/useInLoungeListener';
+import { useBoarderAreaScanListener } from '@wtloop/hooks/useBoarderAreaScanListener';
 import { useSetInLoungeState } from '@wtloop/hooks/useSetInLoungeState';
 
 export interface TripInfoContextInterface {
   useBoardingState: () => {
+    inBoardingArea: boolean;
+    listenForBoardingAreaScan: () => void;
+    stopListeningForBoardingAreaScan: () => void;
     isBoarded: boolean;
     setIsBoarded: (isBoarded: boolean) => void;
   };
@@ -15,8 +18,7 @@ export interface TripInfoContextInterface {
   };
   useInLoungeState: () => {
     inLounge: boolean;
-    listenForInLounge: () => void;
-    stopListeningForInLounge: () => void;
+    enterToLounge: () => void;
   };
   resetTrip: () => void;
 }
@@ -25,24 +27,25 @@ export const TripInfoContext =
   createContext<TripInfoContextInterface>(undefined);
 
 export const TripInfo = () => {
-  const [isBoarded, _setIsBoarded] = useState(false);
+  const [inBoardingArea, setInBoardingArea] = useState(false);
+  const [_isBoarded, _setIsBoarded] = useState(false);
   const [inLounge, setInLounge] = useState(false);
   const [upgradedWithOffer, setUpgradedWithOffer] = useState<Offer>();
   const [isUpgrading, setIsUpgrading] = useState(false);
 
   const {
-    inLounge: freshInLounge,
+    inBoardingArea: freshInBoardingArea,
     startListening,
     stopListening,
-  } = useInLoungeListener();
+  } = useBoarderAreaScanListener();
 
   const { refetch: resetInLoungeState } = useSetInLoungeState(false);
 
-  const listenForInLounge = () => {
+  const listenForBoardingAreaScan = () => {
     startListening();
   };
 
-  const stopListeningForInLounge = () => {
+  const stopListeningForBoardingAreaScan = () => {
     stopListening();
   };
 
@@ -56,12 +59,13 @@ export const TripInfo = () => {
   };
 
   useEffect(() => {
-    if (!freshInLounge) return;
-    setInLounge(freshInLounge);
-  }, [freshInLounge]);
+    if (!freshInBoardingArea) return;
+    setInBoardingArea(freshInBoardingArea);
+  }, [freshInBoardingArea]);
 
   const resetTrip = () => {
-    stopListeningForInLounge();
+    stopListeningForBoardingAreaScan();
+    setInBoardingArea(false);
     setIsBoarded(false);
     setInLounge(false);
     setUpgradedWithOffer(undefined);
@@ -70,12 +74,25 @@ export const TripInfo = () => {
 
   useEffect(resetTrip, []);
 
-  const setIsBoarded = async (_isBoarded: boolean) => {
+  const setIsBoarded = async (isBoarded: boolean) => {
     await resetInLoungeState();
-    _setIsBoarded(_isBoarded);
+    _setIsBoarded(isBoarded);
   };
 
-  const useBoardingState = () => ({ isBoarded, setIsBoarded });
+  const enterToLounge = () => {
+    setInLounge(true);
+    setInBoardingArea(false);
+    setIsBoarded(true);
+  };
+
+  const useBoardingState = () => ({
+    inBoardingArea,
+    setInBoardingArea,
+    listenForBoardingAreaScan,
+    stopListeningForBoardingAreaScan,
+    isBoarded: _isBoarded,
+    setIsBoarded,
+  });
   const useUpgradingState = () => ({
     upgradedWithOffer,
     upgradeWithOffer,
@@ -83,8 +100,7 @@ export const TripInfo = () => {
   });
   const useInLoungeState = () => ({
     inLounge,
-    listenForInLounge,
-    stopListeningForInLounge,
+    enterToLounge,
   });
 
   return {

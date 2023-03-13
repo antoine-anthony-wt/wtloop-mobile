@@ -34,14 +34,14 @@ export default function HomeScreen() {
   } = useFetchAEMAdContent();
   const { useBoardingState, useUpgradingState, useInLoungeState } =
     useTripInfo();
-  const { isBoarded } = useBoardingState();
+  const { inBoardingArea, isBoarded } = useBoardingState();
   const { upgradedWithOffer, upgradeWithOffer, isUpgrading } =
     useUpgradingState();
-  const { inLounge } = useInLoungeState();
+  const { inLounge, enterToLounge } = useInLoungeState();
 
   const presentLoungeInvitation = useMemo(
-    () => isBoarded && upgradedWithOffer && !inLounge,
-    [isBoarded, upgradedWithOffer, inLounge],
+    () => inBoardingArea,
+    [inBoardingArea],
   );
   const presentWelcomeToLounge = useMemo(
     () => isBoarded && upgradedWithOffer && inLounge,
@@ -76,10 +76,6 @@ export default function HomeScreen() {
     PopupView.open({
       content: <UpgradedTicket offer={offer} />,
     });
-  };
-
-  const goToTicketScreen = () => {
-    navigation.navigate(TicketScreenName);
   };
 
   useEffect(() => {
@@ -169,7 +165,7 @@ export default function HomeScreen() {
             }}
           />
         )}
-        {presentLoungeInvitation && <InfoItem onPress={goToTicketScreen} />}
+        {presentLoungeInvitation && <InfoItem onPress={enterToLounge} />}
       </ScrollView>
       <LoadingView
         visible={isUpgrading}
