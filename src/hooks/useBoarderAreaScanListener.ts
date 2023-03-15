@@ -7,7 +7,6 @@ export const useBoarderAreaScanListener = () => {
   let timerInterval: NodeJS.Timer;
 
   const fetchInBoardingAreaInfo = async () => {
-    console.log('LISTENING');
     const response = await axios.get(IN_LOUNGE_URL);
     setInBoardingArea(response.data.firstClass === 'true');
   };

@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useCallback, useEffect, useState } from 'react';
 import { Offer } from '@wtloop/types';
 import { useBoarderAreaScanListener } from '@wtloop/hooks/useBoarderAreaScanListener';
 import { useSetInBoarderAreaState } from '@wtloop/hooks/useSetInBoarderAreaState';
@@ -41,7 +41,7 @@ export const TripInfo = () => {
   } = useBoarderAreaScanListener();
 
   const { refetch: resetInBoardingAreaState } = useSetInBoarderAreaState(false);
-  const { refetch: setInBoardingAreaState } = useSetInBoarderAreaState(true);
+  // const { refetch: setInBoardingAreaState } = useSetInBoarderAreaState(true);
 
   const listenForBoardingAreaScan = () => {
     startListening();
@@ -70,14 +70,15 @@ export const TripInfo = () => {
     setInBoardingArea(false);
     setIsBoarded(false);
     setInLounge(false);
+    setIsUpgrading(false);
     setUpgradedWithOffers([]);
     resetInBoardingAreaState();
   };
 
   useEffect(resetTrip, []);
 
-  const enterToBoardingArea = async () => {
-    await setInBoardingAreaState();
+  const enterToBoardingArea = /* async*/ () => {
+    // await setInBoardingAreaState();
     setInBoardingArea(true);
   };
 
@@ -92,23 +93,32 @@ export const TripInfo = () => {
     setIsBoarded(true);
   };
 
-  const useBoardingState = () => ({
-    inBoardingArea,
-    enterToBoardingArea,
-    listenForBoardingAreaScan,
-    stopListeningForBoardingAreaScan,
-    isBoarded: _isBoarded,
-    setIsBoarded,
-  });
-  const useUpgradingState = () => ({
-    upgradedWithOffers,
-    upgradeWithOffer,
-    isUpgrading,
-  });
-  const useInLoungeState = () => ({
-    inLounge,
-    enterToLounge,
-  });
+  const useBoardingState = useCallback(
+    () => ({
+      inBoardingArea,
+      enterToBoardingArea,
+      listenForBoardingAreaScan,
+      stopListeningForBoardingAreaScan,
+      isBoarded: _isBoarded,
+      setIsBoarded,
+    }),
+    [inBoardingArea, _isBoarded],
+  );
+  const useUpgradingState = useCallback(
+    () => ({
+      upgradedWithOffers,
+      upgradeWithOffer,
+      isUpgrading,
+    }),
+    [upgradedWithOffers, isUpgrading],
+  );
+  const useInLoungeState = useCallback(
+    () => ({
+      inLounge,
+      enterToLounge,
+    }),
+    [inLounge],
+  );
 
   return {
     useBoardingState,

@@ -86,8 +86,6 @@ export default function HomeScreen() {
     showUpgradedPopup(upgradedWithOffers[upgradeWithOffer.length - 1]);
   }, [upgradedWithOffers]);
 
-  console.log(offers?.length);
-
   return (
     <View style={styles.container}>
       <FocusAwareStatusBar
