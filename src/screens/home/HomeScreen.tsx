@@ -25,23 +25,30 @@ export default function HomeScreen() {
 
   const {
     error: errorLoadingOffers,
-    data: offers,
+    data: content,
     refetch: refetchOffers,
   } = useFetchAEMAdContent();
   const { useBoardingState, useUpgradingState, useInLoungeState } =
     useTripInfo();
   const { inBoardingArea, isBoarded } = useBoardingState();
-  const { upgradedWithOffer, upgradeWithOffer, isUpgrading } =
+  const { upgradedWithOffers, upgradeWithOffer, isUpgrading } =
     useUpgradingState();
   const { inLounge, enterToLounge } = useInLoungeState();
+
+  const offers = useMemo(() => {
+    if (inLounge) {
+      return upgradedWithOffers;
+    }
+    return content;
+  }, [content, inLounge, upgradedWithOffers]);
 
   const presentLoungeInvitation = useMemo(
     () => inBoardingArea,
     [inBoardingArea],
   );
   const presentWelcomeToLounge = useMemo(
-    () => isBoarded && upgradedWithOffer && inLounge,
-    [isBoarded, upgradedWithOffer, inLounge],
+    () => isBoarded && upgradedWithOffers.length > 0 && inLounge,
+    [isBoarded, upgradedWithOffers, inLounge],
   );
   const presentMyOffers = useMemo(
     () => !presentLoungeInvitation,
@@ -53,7 +60,7 @@ export default function HomeScreen() {
       const xdmData = { eventType: 'SampleXDMEvent' };
       const data = { free: 'form', data: 'example' };
       const experienceEvent = new ExperienceEvent(xdmData, data);
-      console.log('exerienceEvent: ', experienceEvent);
+      console.log('experienceEvent: ', experienceEvent);
       Edge.sendEvent(experienceEvent).then((eventHandles) =>
         console.log(
           'Edge.sentEvent returned EdgeEventHandles = ' +
@@ -75,9 +82,11 @@ export default function HomeScreen() {
   };
 
   useEffect(() => {
-    if (!upgradedWithOffer) return;
-    showUpgradedPopup(upgradedWithOffer);
-  }, [upgradedWithOffer]);
+    if (!upgradedWithOffers.length) return;
+    showUpgradedPopup(upgradedWithOffers[upgradeWithOffer.length - 1]);
+  }, [upgradedWithOffers]);
+
+  console.log(offers?.length);
 
   return (
     <View style={styles.container}>
@@ -107,39 +116,41 @@ export default function HomeScreen() {
         {presentWelcomeToLounge && (
           <Text style={styles.welcomeLounge}>{'Welcome to\nFirst Class'}</Text>
         )}
-        {presentMyOffers && !errorLoadingOffers && offers?.length && (
+        {presentMyOffers && !errorLoadingOffers && offers?.length > 0 && (
           <View style={styles.offersContainer}>
             <Text style={styles.offersTitle}>My Offers</Text>
             <Carousel
               vertical={false}
               width={ScreenWidth}
               style={styles.offersCarousel}
-              loop
+              loop={offers.length > 1}
               pagingEnabled
               snapEnabled
-              autoPlay
+              enabled={offers.length > 1}
+              autoPlay={offers.length > 1}
               autoPlayInterval={5000}
               mode="parallax"
               modeConfig={{
                 parallaxScrollingScale: 0.9,
-                parallaxScrollingOffset: 50,
+                parallaxScrollingOffset: offers.length > 1 ? 50 : 0,
               }}
               panGestureHandlerProps={{
                 activeOffsetX: [-10, 10],
               }}
-              data={presentMyOffers ? offers : []}
+              data={offers}
               renderItem={({ item }) => (
                 <OfferItem
                   offer={item}
+                  inLounge={inLounge}
                   tagButtonTitle={
-                    !upgradedWithOffer
+                    !upgradedWithOffers.includes(item)
                       ? 'UPGRADE HERE'
                       : !inLounge
                       ? 'UPGRADED'
                       : undefined
                   }
                   onPressButton={
-                    !upgradedWithOffer
+                    !upgradedWithOffers.includes(item)
                       ? () => upgradeToFirstClass(item)
                       : undefined
                   }
@@ -148,7 +159,7 @@ export default function HomeScreen() {
             />
           </View>
         )}
-        {presentMyOffers && (!!errorLoadingOffers || !offers?.length) && (
+        {presentMyOffers && (!!errorLoadingOffers || offers?.length === 0) && (
           <PlaceholderView
             title="Hmm..."
             message={

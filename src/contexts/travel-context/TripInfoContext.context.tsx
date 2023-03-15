@@ -13,7 +13,7 @@ export interface TripInfoContextInterface {
     setIsBoarded: (isBoarded: boolean) => void;
   };
   useUpgradingState: () => {
-    upgradedWithOffer?: Offer;
+    upgradedWithOffers?: Offer[];
     upgradeWithOffer: (offer: Offer) => void;
     isUpgrading: boolean;
   };
@@ -31,7 +31,7 @@ export const TripInfo = () => {
   const [inBoardingArea, setInBoardingArea] = useState(false);
   const [_isBoarded, _setIsBoarded] = useState(false);
   const [inLounge, setInLounge] = useState(false);
-  const [upgradedWithOffer, setUpgradedWithOffer] = useState<Offer>();
+  const [upgradedWithOffers, setUpgradedWithOffers] = useState<Offer[]>([]);
   const [isUpgrading, setIsUpgrading] = useState(false);
 
   const {
@@ -55,7 +55,7 @@ export const TripInfo = () => {
     setIsUpgrading(true);
     resetInBoardingAreaState();
     setTimeout(() => {
-      setUpgradedWithOffer(offer);
+      setUpgradedWithOffers([...upgradedWithOffers, offer]);
       setIsUpgrading(false);
     }, 1000);
   };
@@ -70,7 +70,7 @@ export const TripInfo = () => {
     setInBoardingArea(false);
     setIsBoarded(false);
     setInLounge(false);
-    setUpgradedWithOffer(undefined);
+    setUpgradedWithOffers([]);
     resetInBoardingAreaState();
   };
 
@@ -101,7 +101,7 @@ export const TripInfo = () => {
     setIsBoarded,
   });
   const useUpgradingState = () => ({
-    upgradedWithOffer,
+    upgradedWithOffers,
     upgradeWithOffer,
     isUpgrading,
   });

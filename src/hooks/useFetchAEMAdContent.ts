@@ -22,7 +22,7 @@ export function useFetchAEMAdContentQuery() {
         return await axios.get(AEM_ENDPOINT);
       };
 
-      const response = await selectedResponse({ mocked: true });
+      const response = await selectedResponse({ mocked: false });
       const data = response.data.data.advertismentList.items as Record<
         string,
         any

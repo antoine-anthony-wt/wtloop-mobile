@@ -8,6 +8,7 @@ import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 export interface OfferItemProps {
   offer: Offer;
+  inLounge: boolean;
   tagButtonTitle?: string;
   containerStyle?: StyleProp<ViewStyle>;
   onPressButton: () => void;
@@ -15,6 +16,7 @@ export interface OfferItemProps {
 
 const OfferItem = ({
   offer,
+  inLounge,
   tagButtonTitle,
   containerStyle,
   onPressButton,
@@ -25,10 +27,17 @@ const OfferItem = ({
     <View>
       <TouchableWithoutFeedback style={[styles.container, containerStyle]}>
         <View style={styles.content}>
-          <FastImage source={{ uri: offer.imageUrl }} style={styles.image} />
+          <FastImage
+            source={{
+              uri: inLounge
+                ? offer.confirmationTeaser.imageUrl
+                : offer.imageUrl,
+            }}
+            style={styles.image}
+          />
           <View style={styles.titleContainer}>
             <Text style={styles.title} numberOfLines={3}>
-              {offer.title}
+              {inLounge ? offer.confirmationTeaser.title : offer.title}
             </Text>
           </View>
         </View>

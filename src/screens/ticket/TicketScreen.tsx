@@ -24,10 +24,10 @@ export default function TicketScreen() {
     listenForBoardingAreaScan,
     stopListeningForBoardingAreaScan,
   } = useBoardingState();
-  const { upgradedWithOffer } = useUpgradingState();
+  const { upgradedWithOffers } = useUpgradingState();
 
   useEffect(() => {
-    if (!inBoardingArea && !isBoarded && !!upgradedWithOffer) {
+    if (!inBoardingArea && !isBoarded && upgradedWithOffers.length > 0) {
       stopListeningForBoardingAreaScan();
       listenForBoardingAreaScan();
     }
@@ -102,7 +102,7 @@ export default function TicketScreen() {
         <TouchableHighlight
           style={styles.qrContainer}
           onPress={
-            !inBoardingArea && !isBoarded && !!upgradedWithOffer
+            !inBoardingArea && !isBoarded && upgradedWithOffers.length > 0
               ? enterToBoardingArea
               : undefined
           }>
