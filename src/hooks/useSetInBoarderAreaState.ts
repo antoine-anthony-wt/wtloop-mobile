@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useQuery } from 'react-query';
 import { IN_LOUNGE_URL } from '@env';
 
-export const useSetInLoungeState = (inLounge: boolean) => {
+export const useSetInBoarderAreaState = (inLounge: boolean) => {
   return useQuery(
     'in-lounge',
     async () => {

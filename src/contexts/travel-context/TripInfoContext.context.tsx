@@ -1,11 +1,12 @@
 import { createContext, useEffect, useState } from 'react';
 import { Offer } from '@wtloop/types';
 import { useBoarderAreaScanListener } from '@wtloop/hooks/useBoarderAreaScanListener';
-import { useSetInLoungeState } from '@wtloop/hooks/useSetInLoungeState';
+import { useSetInBoarderAreaState } from '@wtloop/hooks/useSetInBoarderAreaState';
 
 export interface TripInfoContextInterface {
   useBoardingState: () => {
     inBoardingArea: boolean;
+    enterToBoardingArea: () => void;
     listenForBoardingAreaScan: () => void;
     stopListeningForBoardingAreaScan: () => void;
     isBoarded: boolean;
@@ -39,7 +40,8 @@ export const TripInfo = () => {
     stopListening,
   } = useBoarderAreaScanListener();
 
-  const { refetch: resetInLoungeState } = useSetInLoungeState(false);
+  const { refetch: resetInBoardingAreaState } = useSetInBoarderAreaState(false);
+  const { refetch: setInBoardingAreaState } = useSetInBoarderAreaState(true);
 
   const listenForBoardingAreaScan = () => {
     startListening();
@@ -51,7 +53,7 @@ export const TripInfo = () => {
 
   const upgradeWithOffer = (offer: Offer) => {
     setIsUpgrading(true);
-    resetInLoungeState();
+    resetInBoardingAreaState();
     setTimeout(() => {
       setUpgradedWithOffer(offer);
       setIsUpgrading(false);
@@ -69,13 +71,18 @@ export const TripInfo = () => {
     setIsBoarded(false);
     setInLounge(false);
     setUpgradedWithOffer(undefined);
-    resetInLoungeState();
+    resetInBoardingAreaState();
   };
 
   useEffect(resetTrip, []);
 
+  const enterToBoardingArea = async () => {
+    await setInBoardingAreaState();
+    setInBoardingArea(true);
+  };
+
   const setIsBoarded = async (isBoarded: boolean) => {
-    await resetInLoungeState();
+    await resetInBoardingAreaState();
     _setIsBoarded(isBoarded);
   };
 
@@ -87,7 +94,7 @@ export const TripInfo = () => {
 
   const useBoardingState = () => ({
     inBoardingArea,
-    setInBoardingArea,
+    enterToBoardingArea,
     listenForBoardingAreaScan,
     stopListeningForBoardingAreaScan,
     isBoarded: _isBoarded,

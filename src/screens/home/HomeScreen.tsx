@@ -16,16 +16,12 @@ import { PopupView } from '@wtloop/components/popup-view';
 import { useTripInfo } from '@wtloop/hooks/useTripInfo';
 import { Offer } from '@wtloop/types';
 import LoadingView from '@wtloop/components/loading-view/LoadingView';
-import { useNavigation } from '@react-navigation/native';
-import { TicketScreenName } from '../ticket/TicketScreen';
 import PlaceholderView from '@wtloop/components/placeholder-view/PlaceholderView';
 import { Edge, ExperienceEvent } from '@adobe/react-native-aepedge';
-import { HomeScreenNavigationProp } from '@wtloop/navigators/home/HomeNavigator';
 
 export default function HomeScreen() {
   const styles = useStyles();
   const { theme } = useTheme();
-  const navigation = useNavigation<HomeScreenNavigationProp>();
 
   const {
     error: errorLoadingOffers,

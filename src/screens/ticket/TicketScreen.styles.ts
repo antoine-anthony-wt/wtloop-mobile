@@ -52,13 +52,17 @@ const useStyles = makeStyles(({ colors, spacing, typography }) => ({
     alignItems: 'center',
     maxHeight: Math.min(ScreenHeight * 0.7, 600),
   },
-  qr: {
+  qrContainer: {
     position: 'absolute',
     height: '38%',
     width: undefined,
     aspectRatio: 1,
     top: '23%',
     alignSelf: 'center',
+  },
+  qr: {
+    height: '100%',
+    width: '100%',
   },
   footer: {
     position: 'absolute',

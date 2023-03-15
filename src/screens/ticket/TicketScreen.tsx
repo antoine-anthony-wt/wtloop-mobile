@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Image, View, Text } from 'react-native';
+import { Image, View, Text, TouchableHighlight } from 'react-native';
 import { ActionButton, FocusAwareStatusBar } from '@wtloop/components';
 import { useTheme } from '@rneui/themed';
 import useStyles from './TicketScreen.styles';
@@ -19,6 +19,7 @@ export default function TicketScreen() {
   const { useBoardingState, useUpgradingState, resetTrip } = useTripInfo();
   const {
     inBoardingArea,
+    enterToBoardingArea,
     isBoarded,
     listenForBoardingAreaScan,
     stopListeningForBoardingAreaScan,
@@ -98,10 +99,18 @@ export default function TicketScreen() {
       </View>
       <View style={styles.ticketImageContainer}>
         <TicketImage height={'100%'} />
-        <Image
-          source={require('@wtloop/assets/images/qr-code.png')}
-          style={styles.qr}
-        />
+        <TouchableHighlight
+          style={styles.qrContainer}
+          onPress={
+            !inBoardingArea && !isBoarded && !!upgradedWithOffer
+              ? enterToBoardingArea
+              : undefined
+          }>
+          <Image
+            source={require('@wtloop/assets/images/qr-code.png')}
+            style={styles.qr}
+          />
+        </TouchableHighlight>
       </View>
       <View style={styles.footer} />
     </View>
